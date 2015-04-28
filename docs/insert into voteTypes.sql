@@ -1,0 +1,14 @@
+INSERT INTO voteTypes (id, name) VALUES (1, 'AcceptedByOriginator');
+INSERT INTO voteTypes (id, name) VALUES (2, 'UpMod ');
+INSERT INTO voteTypes (id, name) VALUES (3, 'DownMod');
+INSERT INTO voteTypes (id, name) VALUES (4, 'Offensive ');
+INSERT INTO voteTypes (id, name) VALUES (5, 'Favorite');
+INSERT INTO voteTypes (id, name) VALUES (6, 'Close ');
+INSERT INTO voteTypes (id, name) VALUES (7, 'Reopen');
+INSERT INTO voteTypes (id, name) VALUES (8, 'BountyStart');
+INSERT INTO voteTypes (id, name) VALUES (9, 'BountyClose');
+INSERT INTO voteTypes (id, name) VALUES (10, 'Deletion');
+INSERT INTO voteTypes (id, name) VALUES (11, 'Undeletion');
+INSERT INTO voteTypes (id, name) VALUES (12, 'Spam');
+INSERT INTO voteTypes (id, name) VALUES (13, 'ModeratorReview');
+INSERT INTO voteTypes (id, name) VALUES (14, 'ApproveEditSuggestion ');
