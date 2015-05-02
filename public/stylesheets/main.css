@@ -1,12 +1,98 @@
-body {
-    margin-top: 500px;
+
+html,body {
+    height: 100%;
+    width: 100%;
+    margin: 0; /* убираем наружные отступы */
+    padding: 0; /* убираем внутренние отступы */
+
 }
-.doughnut-legend li span {
-    width: 10em;
-    height: 1em;
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#banner{
+    width: 100%;
+    height: 5%;
+    background-color: rgba(0, 0, 0, 0.86);
+    text-align:center;
+
+
+}
+
+#titleLink{
+    text-decoration: none;
+    font-family: proxima-nova,Helvetica Neue,Helvetica,sans-serif;
+    text-decoration: none;
+    /*font-weight: bold;*/
+    color: ghostwhite;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 6px
+}
+
+
+#navigation{
+    width: 100%;
+    height: 10%;
+}
+
+#image-logo{
     display: inline-block;
-    margin-right: 50px;
+    width: 200px;
+    height: 50px;
+    float: left;
+    background-repeat: no-repeat;
+    background-image: url("./../images/logo.png"), none;
 }
-.doughnut-legend {
+
+ ul.css-menu{
     list-style: none;
+    float: right;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top: 2%;
+}
+
+ul.css-menu li {
+    display: inline-block;
+
+}
+ ul.css-menu li a {
+    font-family: Tahoma, Geneva, sans-serif;
+    text-decoration: none;
+    background-color: dimgray;
+    font-weight: normal;
+    color: ghostwhite;
+    padding: 6px 10px 6px 10px
+}
+
+ ul.css-menu li a:hover {
+    padding: 6px 10px 6px 10px;
+    font-weight: normal;
+    background-color: orange;
+    color: ghostwhite;
+}
+
+
+#content {
+    /*margin-left: 26%;*/
+    clear: both;
+    width: 100%;
+    /*height:50%;*/
+
+}
+
+
+#myBarChart{
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+#footer {
+    width: 100%;
+    background-color: black;
+    /*position: absolute;  устанавливаю абсолютное позиционирование для блока footer */
+    clear: both;
 }

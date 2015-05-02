@@ -19,5 +19,8 @@ object Application extends Controller {
     Ok(views.html.index("Welcome to stackoverflow analitics", json))
   }
 
+  def users () = Action {
+    Ok(views.html.users("Welcome to stackoverflow analitics"))
+  }
 
 }

@@ -24,8 +24,8 @@
             <div id="navigation">
                 <div id="image-logo"></div>
                 <ul class="css-menu">
-                    <li><a href="/users">Users</a></li>
-                    <li><a href="/posts">Posts</a></li>
+                    <li><a href="#">Users</a></li>
+                    <li><a href="#">Posts</a></li>
                     <li><a href="#">Votes</a></li>
                     <li><a href="#">PostHistory</a></li>
                     <li><a href="#">Comments</a></li>
@@ -41,28 +41,28 @@
                 </div>
 
                 <script>
-                    var jsonp = JSON.parse (JSON.stringify (@Html(json))) ;
-                    var labels = jsonp.labels ;
-                    var datacount = jsonp.datacount ;
-                    console.log ( labels ) ;
-                    console.log ( datacount ) ;
+                var jsonp = JSON.parse (JSON.stringify (@Html(json))) ;
+                var labels = jsonp.labels ;
+                var datacount = jsonp.datacount ;
+                console.log ( labels ) ;
+                console.log ( datacount ) ;
 
-                    var ctx = $ ( "#myBarChart" ).get ( 0 ).getContext ( "2d" ) ;
+                var ctx = $ ( "#myBarChart" ).get ( 0 ).getContext ( "2d" ) ;
 
-                    var data = {
-                    labels : labels,
-                    datasets :[ {
-                    label : "My Second dataset",
-                    fillColor : "rgba(151,187,205,0.5)",
-                    strokeColor : "rgba(151,187,205,0.8)",
-                    highlightFill : "rgba(151,187,205,0.75)",
-                    highlightStroke : "rgba(151,187,205,1)",
-                    data : datacount
-                    }
-                    ]
-                    } ;
+                var data = {
+                labels : labels,
+                datasets :[ {
+                label : "My Second dataset",
+                fillColor : "rgba(151,187,205,0.5)",
+                strokeColor : "rgba(151,187,205,0.8)",
+                highlightFill : "rgba(151,187,205,0.75)",
+                highlightStroke : "rgba(151,187,205,1)",
+                data : datacount
+                }
+                ]
+                } ;
 
-                    var myBarChart = new Chart ( ctx ).Bar ( data ) ;
+                var myBarChart = new Chart ( ctx ).Bar ( data ) ;
                 </script>
             </div>
 
@@ -74,6 +74,3 @@
 
     </body>
 </html>
-
-
-

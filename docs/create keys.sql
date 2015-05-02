@@ -38,4 +38,7 @@ ALTER TABLE fact_count_registered_users ADD  CONSTRAINT fact_count_registered_us
 
 ALTER TABLE dates ADD PRIMARY KEY (date);
 
+ALTER TABLE tags ADD CONSTRAINT tags_excerptpostid_fkey FOREIGN KEY (excerptpostid) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE tags ADD  CONSTRAINT tags_wikipostid_fkey FOREIGN KEY (wikipostid) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+
 CREATE INDEX ON users(creationdate);
