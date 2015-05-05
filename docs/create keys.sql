@@ -36,9 +36,9 @@ ALTER TABLE postLinks ADD  CONSTRAINT postLinks_postId_fkey FOREIGN KEY (postId)
 ALTER TABLE fact_count_registered_users ADD PRIMARY KEY (id_users);
 ALTER TABLE fact_count_registered_users ADD  CONSTRAINT fact_count_registered_users_id_users_fkey FOREIGN KEY (id_users) REFERENCES users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE dates ADD PRIMARY KEY (date);
 
 ALTER TABLE tags ADD CONSTRAINT tags_excerptpostid_fkey FOREIGN KEY (excerptpostid) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE tags ADD  CONSTRAINT tags_wikipostid_fkey FOREIGN KEY (wikipostid) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-CREATE INDEX ON users(creationdate);
+ALTER TABLE dates ADD PRIMARY KEY (datekey);
+

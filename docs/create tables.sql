@@ -156,8 +156,7 @@ CREATE TABLE dates
   datekey serial NOT NULL,
   year double precision,
   month double precision,
-  day double precision,
-  half_year integer
+  day double precision
 );
 
 
@@ -187,4 +186,26 @@ CREATE TABLE post_dim
   post_type_name character varying(50)
 );
 
+CREATE TABLE postHistory_dim
+(
+  id integer NOT NULL,
+  post_History_Type_Name CHARACTER VARYING(50),
+  post_Id integer,
+  creation_date_key integer
+);
 
+CREATE TABLE votes_dim
+(
+  id integer NOT NULL,
+  post_Id integer,
+  vote_Type_name CHARACTER VARYING(50)
+);
+
+
+CREATE TABLE comments_dim
+(
+  id integer NOT NULL,
+  post_Id integer,
+  score integer,
+  creation_Date_key INTEGER
+);
