@@ -153,9 +153,38 @@ CREATE TABLE fact_count_registered_users
 
 CREATE TABLE dates
 (
-  date timestamp without time zone NOT NULL,
+  datekey serial NOT NULL,
   year double precision,
   month double precision,
-  day double precision
+  day double precision,
+  half_year integer
 );
+
+
+CREATE TABLE users_dim
+(
+  id integer NOT NULL,
+  reputation integer,
+  creation_date_key integer,
+  displayName character varying(40),
+  location character varying(100),
+  views integer,
+  upVotes integer,
+  downVotes integer,
+  age integer
+);
+
+CREATE TABLE post_dim
+(
+  id integer,
+  date_key integer,
+  score integer,
+  view_count integer,
+  owner_user_id integer,
+  favorite_count integer,
+  closed_date timestamp without time zone,
+  community_owned_date timestamp without time zone,
+  post_type_name character varying(50)
+);
+
 
