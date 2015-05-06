@@ -9,7 +9,7 @@ object Application extends Controller {
    private val test = new Test()
 
   def index () = Action {
-
+    MondrianTest.main(null)
     val registerUsersByDate = test.getRegisterUsersByDate
 
     val json = Json.obj("labels" -> JsArray(registerUsersByDate.map(value => JsString(value._2))),

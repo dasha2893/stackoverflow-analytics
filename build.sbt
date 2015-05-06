@@ -6,8 +6,15 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
 scalaVersion := "2.11.1"
 
-libraryDependencies ++= Seq(
-  javaJdbc,
+//unmanagedJars in Compile ++= Seq(
+//  file("libs/olap4j-1.2.0.jar"),
+//  file("libs/olap4j-tck-1.2.0.jar"),
+//  file("libs/olap4j-xmla-1.2.0.jar"),
+//  file("libs/mondrian-3.9.0.0-213.jar"),
+//  file("libs/log4j-1.2.17.jar")
+//)
+
+libraryDependencies ++= Seq(  javaJdbc,
   javaEbean,
   cache,
   javaWs,
