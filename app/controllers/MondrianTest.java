@@ -12,6 +12,9 @@ import java.sql.*;
 
 public class MondrianTest {
 
+    private final static int COLUMNS = 0; //see Cellset javadoc
+    private final static int ROWS= 1; //see Cellset javadoc
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Class.forName("mondrian.olap4j.MondrianOlap4jDriver");
 //        Class.forName("org.postgresql.Driver");
@@ -29,23 +32,24 @@ public class MondrianTest {
 
         String mdx = "SELECT\n" +
                 "NON EMPTY {Hierarchize({[Id.Users-UserId].[All Users-UserIds]})} ON COLUMNS,\n" +
-                "NON EMPTY {Hierarchize({[Measures].[count_users]})} ON ROWS\n" +
+                "NON EMPTY Hierarchize(Union(CrossJoin({[Measures].[count_users]}, [Data.Date].[Year].Members)," +
+                " CrossJoin({[Measures].[count_users]}, [Data.Date].[Month].Members))) ON ROWS\n" +
                 "FROM [data_users]";
 
         CellSet cellSet = olapStatement.executeOlapQuery(mdx);
-
-        for (Position row : cellSet.getAxes().get(1)) {
-            for (Position column : cellSet.getAxes().get(0)) {
-                for (Member member : row.getMembers()) {
-                    System.out.println(member.getUniqueName());
-                }
-                for (Member member : column.getMembers()) {
-                    System.out.println(member.getUniqueName());
-                }
-                final Cell cell = cellSet.getCell(column, row);
-                System.out.println(cell.getFormattedValue());
-                System.out.println();
-            }
-        }
+//
+//        for (Position row : cellSet.getAxes().get(1)) {
+//            for (Position column : cellSet.getAxes().get(0)) {
+//                for (Member member : row.getMembers()) {
+//                    System.out.println(member.getUniqueName());
+//                }
+//                for (Member member : column.getMembers()) {
+//                    System.out.println(member.getUniqueName());
+//                }
+//                final Cell cell = cellSet.getCell(column, row);
+//                System.out.println(cell.getFormattedValue());
+//                System.out.println();
+//            }
+//        }
     }
 }

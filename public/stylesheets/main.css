@@ -62,7 +62,7 @@ ul.css-menu li {
  ul.css-menu li a {
     font-family: Tahoma, Geneva, sans-serif;
     text-decoration: none;
-    background-color: dimgray;
+    background-color: rgba(123, 123, 123, 0.84);
     font-weight: normal;
     color: ghostwhite;
     padding: 6px 10px 6px 10px
