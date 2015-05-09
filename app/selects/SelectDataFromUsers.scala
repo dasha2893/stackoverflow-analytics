@@ -1,5 +1,7 @@
 package selects
 
+import java.text.{DecimalFormat, NumberFormat}
+
 import org.olap4j.{Cell, CellSet, OlapStatement}
 import org.olap4j.OlapConnection
 import org.olap4j._
@@ -20,9 +22,9 @@ object SelectDataFromUsers {
 
    val olapStatement = new ConnectToMondrian().getStatement()
    val mdx: String = "SELECT\nNON EMPTY {Hierarchize({[Id.Users-UserId].[All Users-UserIds]})} ON COLUMNS,\n" +
-     "NON EMPTY Hierarchize(Union(CrossJoin({[Measures].[count_users]}, " +
-     "[Data.Date].[Year].Members), CrossJoin({[Measures].[count_users]}, [Data.Date].[Month].Members))) ON ROWS\n" +
-     "FROM [data_users]"
+                     "NON EMPTY Hierarchize(Union(CrossJoin({[Measures].[count_users]}, " +
+                     "[Data.Date].[Year].Members), CrossJoin({[Measures].[count_users]}, [Data.Date].[Month].Members))) ON ROWS\n" +
+                     "FROM [data_users]"
 
    val cellSet = olapStatement.executeOlapQuery(mdx)
 
@@ -30,20 +32,16 @@ object SelectDataFromUsers {
    for (row <- cellSet.getAxes.get(1)) {
      for (column <- cellSet.getAxes.get(0)) {
 
-       val dateNotParser = row.getMembers.get(1).toString
-       println("dateNotParser = " + dateNotParser)
+       val dateNotParse = row.getMembers.get(1).toString
        val regex = """\[(.*?)\].\[(\d{4})\].\[(\d{1,2})\]""".r
 
-         dateNotParser match {
+         dateNotParse match {
          case regex(date, year, month) => {
-           val dateParser = convert(month.toInt).toString.+(" " + year).toString
-           println("DateParser = " + dateParser)
+           val dateParse = convert(month.toInt).toString.+(" " + year).toString
 
            val cell = cellSet.getCell(column, row)
            val countUsers = cell.getDoubleValue.toString
-           System.out.println("countUsers = " + countUsers)
-           System.out.println()
-           registerUsersByDate += ((countUsers, dateParser))
+           registerUsersByDate += ((countUsers, dateParse))
          }
          case _ =>
        }
@@ -69,5 +67,178 @@ object SelectDataFromUsers {
         case _ => "some other number"
       }
 
+  def getCountUsersByAge = {
 
+    val countUsersByAge = collection.mutable.ArrayBuffer[(String, String)]()
+    var ageParse = ""
+
+    val olapStatement = new ConnectToMondrian().getStatement()
+    val mdx: String = "SELECT\nNON EMPTY {Hierarchize({[Id.Users-UserId].[All Users-UserIds]})} ON COLUMNS,\n" +
+                      "NON EMPTY CrossJoin({[Measures].[count_users]}, [Age.User-age].[Age].Members) ON ROWS\n" +
+                      "FROM [data_users]"
+
+    val cellSet = olapStatement.executeOlapQuery(mdx)
+
+
+    for (row <- cellSet.getAxes.get(1)) {
+      for (column <- cellSet.getAxes.get(0)) {
+
+        val ageNotParse = row.getMembers.get(1).toString
+        val regex = """\[(.*?)\].\[(.*?)\]""".r
+
+        ageNotParse match {
+          case regex(data, age) => {
+            ageParse = age
+            if (age.equals("#null")) {ageParse = "Age not specified"}
+            val cell = cellSet.getCell(column, row)
+            val countUsers = cell.getDoubleValue.toString
+
+            countUsersByAge += ((countUsers, ageParse))
+          }
+          case _ =>
+        }
+
+      }
+    }
+    countUsersByAge
+
+  }
+
+  def getUserNamesWithMaxCountViews = {
+
+    val userNamesWithMaxCountViews = collection.mutable.ArrayBuffer[(String, String)]()
+
+    val olapStatement = new ConnectToMondrian().getStatement()
+    val mdx: String = "SELECT\n" +
+                      "NON EMPTY {Hierarchize({[Measures].[max_views]})} ON COLUMNS,\n" +
+                      "NON EMPTY Order(TopCount({Hierarchize({[Name.Users-Name].[Name].Members})}, 10, [Measures].[max_views]), [Measures].[max_views], BDESC) ON ROWS\n" +
+                      "FROM [data_users]"
+
+    val cellSet = olapStatement.executeOlapQuery(mdx)
+
+
+    for (row <- cellSet.getAxes.get(1)) {
+      for (column <- cellSet.getAxes.get(0)) {
+
+        val nameNotParse = row.getMembers.get(1).toString
+        val regex = """\[(.*?)\].\[(.*?)\]""".r
+
+        nameNotParse match {
+          case regex(data, userName) => {
+            val cell = cellSet.getCell(column, row)
+            val countViews = cell.getDoubleValue.toString
+            userNamesWithMaxCountViews += ((countViews, userName))
+          }
+          case _ =>
+        }
+
+      }
+    }
+    userNamesWithMaxCountViews
+  }
+
+  def getUserNamesWithMaxReputation = {
+
+    var allReputation = 0.0
+
+    val userNamesWithMaxReputation = collection.mutable.ArrayBuffer[(String, String)]()
+
+    val olapStatement = new ConnectToMondrian().getStatement()
+    val mdx: String = "SELECT\n" +
+                      "NON EMPTY {Hierarchize({[Measures].[max_reputation]})} ON COLUMNS,\n" +
+                      "NON EMPTY Order(TopCount({Hierarchize({[Name.Users-Name].[Name].Members})}, 10, [Measures].[max_reputation]), [Measures].[max_reputation], BDESC) ON ROWS\n" +
+                      "FROM [data_users]"
+
+    val cellSet = olapStatement.executeOlapQuery(mdx)
+
+    for (row <- cellSet.getAxes.get(1)) {
+      for (column <- cellSet.getAxes.get(0)) {
+
+        val nameNotParse = row.getMembers.get(1).toString
+        val regex = """\[(.*?)\].\[(.*?)\]""".r
+
+        nameNotParse match {
+          case regex(data, userName) => {
+            val cell = cellSet.getCell(column, row)
+            val reputation = cell.getDoubleValue.toString
+
+            userNamesWithMaxReputation += ((reputation, userName))
+          }
+          case _ =>
+        }
+
+      }
+    }
+    userNamesWithMaxReputation
+
+  }
+
+  def getUserNamesWithMaxPositiveVotes = {
+
+    val userNamesWithMaxPositiveVotes = collection.mutable.ArrayBuffer[(String, String)]()
+
+    val olapStatement = new ConnectToMondrian().getStatement()
+    val mdx: String = "SELECT\n" +
+                      "NON EMPTY {Hierarchize({[Measures].[max_positive_votes]})} ON COLUMNS,\n" +
+                      "NON EMPTY Order(TopCount({Hierarchize({[Name.Users-Name].[Name].Members})}, 5, [Measures].[max_positive_votes]), [Measures].[max_positive_votes], BDESC) ON ROWS\n" +
+                      "FROM [data_users]"
+
+
+
+    val cellSet = olapStatement.executeOlapQuery(mdx)
+
+    for (row <- cellSet.getAxes.get(1)) {
+      for (column <- cellSet.getAxes.get(0)) {
+
+        val nameNotParse = row.getMembers.get(1).toString
+        val regex = """\[(.*?)\].\[(.*?)\]""".r
+
+        nameNotParse match {
+          case regex(data, userName) => {
+            val cell = cellSet.getCell(column, row)
+            val positiveVotes = cell.getDoubleValue.toString
+
+            userNamesWithMaxPositiveVotes += ((positiveVotes, userName))
+          }
+          case _ =>
+        }
+
+      }
+    }
+    userNamesWithMaxPositiveVotes
+
+  }
+
+  def getUserNamesWithMaxNegativeVotes = {
+
+   val userNamesWithMaxNegativeVotes = collection.mutable.ArrayBuffer[(String, String)]()
+   val olapStatement = new ConnectToMondrian().getStatement()
+
+   val mdx2: String = "SELECT\n" +
+     "NON EMPTY {Hierarchize({[Measures].[max_negative_votes]})} ON COLUMNS,\n" +
+     "NON EMPTY TopCount({Hierarchize({[Name.Users-Name].[Name].Members})}, 5, [Measures].[max_negative_votes]) ON ROWS\n" +
+     "FROM [data_users]"
+
+   val cellSet = olapStatement.executeOlapQuery(mdx2)
+
+   for (row <- cellSet.getAxes.get(1)) {
+     for (column <- cellSet.getAxes.get(0)) {
+
+       val nameNotParse = row.getMembers.get(1).toString
+       val regex = """\[(.*?)\].\[(.*?)\]""".r
+
+       nameNotParse match {
+         case regex(data, userName) => {
+           val cell = cellSet.getCell(column, row)
+           val negativeVotes = cell.getDoubleValue.toString
+
+           userNamesWithMaxNegativeVotes += ((negativeVotes, userName))
+         }
+         case _ =>
+       }
+
+     }
+   }
+   userNamesWithMaxNegativeVotes
+ }
 }

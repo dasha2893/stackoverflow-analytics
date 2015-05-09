@@ -1,4 +1,10 @@
-@(title: String)
+@(title: String,
+  registerUsersByDate: collection.mutable.ArrayBuffer[(String, String)],
+  countUsersByAge: collection.mutable.ArrayBuffer[(String, String)],
+  userNamesWithMaxReputation : collection.mutable.ArrayBuffer[(String, String)],
+  userNamesWithMaxPositiveVotes: collection.mutable.ArrayBuffer[(String, String)],
+  userNamesWithMaxNegativeVotes: collection.mutable.ArrayBuffer[(String, String)]
+  )
 
 <!DOCTYPE html>
 
@@ -11,6 +17,16 @@
         <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
         <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
         <script type='text/javascript' src='@routes.Assets.at("javascripts/Chart.js")'></script>
+
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.common.core.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.common.tooltips.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.common.dynamic.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.pie.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/excanvas.js")'></script>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/demos.css")">
+
+
+
     </head>
 
     <body>
@@ -24,16 +40,180 @@
             <div id="navigation">
                 <div id="image-logo"></div>
                 <ul class="css-menu">
-                    <li><a href="#">Users</a></li>
-                    <li><a href="#">Posts</a></li>
+                    <li><a href="/users">Users</a></li>
+                    <li><a href="/posts">Posts</a></li>
                     <li><a href="#">Votes</a></li>
                     <li><a href="#">PostHistory</a></li>
                     <li><a href="#">Comments</a></li>
                     <li><a href="#">Tags</a></li>
+                    <li><a href="#">Badges</a></li>
                 </ul>
             </div>
 
             <div  id="content">
+
+                <div id="text">This statistic shows the total number of registered users for every month since site inception</div>
+                <div id="content-chart">
+                            <canvas id="myLineChart" width="1800" height="500"></canvas>
+                    <script>
+
+                    var ctx = $ ( "#myLineChart" ).get ( 0 ).getContext ( "2d" ) ;
+
+                    var labels = @Html(registerUsersByDate.map(_._2).toArray.mkString("['","','","']"))
+                    var charData = @Html(registerUsersByDate.map(_._1).toArray.mkString("[",",","]"))
+                    var data = {
+                    labels :labels,
+                    datasets :[ {
+                    label : "My Second dataset",
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgb(100, 110, 255)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data : charData
+                    }
+                    ]
+                    } ;
+
+
+                    var myLineChart = new Chart(ctx).Line(data);
+
+                    </script>
+                </div>
+
+                <div id="text">Count users of a certain age are registered on the site</div>
+                <div id="content-chart">
+                            <canvas id="myBarChart" width="1100" height="500"></canvas>
+                    <script>
+
+                    var ctx = $ ( "#myBarChart" ).get ( 0 ).getContext ( "2d" ) ;
+                    var labels = @Html(countUsersByAge.map(_._2).toArray.mkString("['","','","']"))
+                    var charData = @Html(countUsersByAge.map(_._1).toArray.mkString("[",",","]"))
+                    var data = {
+                    labels :labels,
+                    datasets :[ {
+                    label : "My Second dataset",
+                    fillColor : "rgba(100, 193, 205, 0.80)",
+                    strokeColor : "rgba(100, 193, 205, 0.80)",
+                    highlightFill : "rgba(151,187,205,0.75)",
+                    highlightStroke : "rgba(151,187,205,1)",
+                    data : charData
+
+                    }
+                    ]
+                    } ;
+
+
+                    var myBarChart = new Chart ( ctx ).Bar (data) ;
+
+                    </script>
+                </div>
+
+                <div id="text">Users with the highest reputation</div>
+                <div id="content-chart">
+                    <canvas id="myBarChart2" width="1000" height="500"></canvas>
+                    <script>
+
+                    var ctx2 = $ ( "#myBarChart2" ).get ( 0 ).getContext ( "2d" ) ;
+                    var labels = @Html(userNamesWithMaxReputation.map(_._2).toArray.mkString("['","','","']"))
+                    var reputation = @Html(userNamesWithMaxReputation.map(_._1).toArray.mkString("[",",","]"))
+                    var data = {
+                    labels :labels,
+                    datasets :[ {
+                    label : "My Second dataset",
+                    fillColor : "rgba(100, 193, 205, 0.80)",
+                    strokeColor : "rgba(100, 193, 205, 0.80)",
+                    highlightFill : "rgba(151,187,205,0.75)",
+                    highlightStroke : "rgba(151,187,205,1)",
+                    data : reputation
+                    }
+                    ]
+                    } ;
+
+                    var myBarChart2 = new Chart ( ctx2 ).Bar (data) ;
+
+                    </script>
+                </div>
+
+                <div id="text">Users with the most views</div>
+                <div id="content-chart">
+                <canvas id="myBarChart3" width="1000" height="500"></canvas>
+                <script>
+
+                var ctx3 = $ ( "#myBarChart3" ).get ( 0 ).getContext ( "2d" ) ;
+                var labels = @Html(userNamesWithMaxReputation.map(_._2).toArray.mkString("['","','","']"))
+                var reputation = @Html(userNamesWithMaxReputation.map(_._1).toArray.mkString("[",",","]"))
+                var data = {
+                labels :labels,
+                datasets :[ {
+                label : "My Second dataset",
+                fillColor : "rgba(100, 193, 205, 0.80)",
+                strokeColor : "rgba(100, 193, 205, 0.80)",
+                highlightFill : "rgba(151,187,205,0.75)",
+                highlightStroke : "rgba(151,187,205,1)",
+                data : reputation
+                }
+                ]
+                } ;
+
+                var myBarChart3 = new Chart ( ctx3 ).Bar (data) ;
+
+                </script>
+                </div>
+
+                <div id="content-chart1">
+                    <div id="text">Users with the most positive votes</div>
+                    <canvas id="myBarChart4" width="500" height="500"></canvas>
+                    <script>
+
+                    var ctx4 = $ ( "#myBarChart4" ).get ( 0 ).getContext ( "2d" ) ;
+                    var labels = @Html(userNamesWithMaxPositiveVotes.map(_._2).toArray.mkString("['","','","']"))
+                    var reputation = @Html(userNamesWithMaxPositiveVotes.map(_._1).toArray.mkString("[",",","]"))
+                    var data = {
+                    labels :labels,
+                    datasets :[ {
+                    label : "My Second dataset",
+                    fillColor : "rgba(100, 193, 205, 0.80)",
+                    strokeColor : "rgba(100, 193, 205, 0.80)",
+                    highlightFill : "rgba(151,187,205,0.75)",
+                    highlightStroke : "rgba(151,187,205,1)",
+                    data : reputation
+                    }
+                    ]
+                    } ;
+
+                    var myBarChart4 = new Chart ( ctx4 ).Bar (data) ;
+
+                    </script>
+                </div>
+
+                <div id="content-chart2">
+                    <div id="text">Users with the most negative votes</div>
+                    <canvas id="myBarChart5" width="500" height="400"></canvas>
+                    <script>
+
+                    var ctx5 = $ ( "#myBarChart5" ).get ( 0 ).getContext ( "2d" ) ;
+                    var labels = @Html(userNamesWithMaxNegativeVotes.map(_._2).toArray.mkString("['","','","']"))
+                    var reputation = @Html(userNamesWithMaxNegativeVotes.map(_._1).toArray.mkString("[",",","]"))
+                    var data = {
+                    labels :labels,
+                    datasets :[ {
+                    label : "My Second dataset",
+                    fillColor : "rgba(100, 193, 205, 0.80)",
+                    strokeColor : "rgba(100, 193, 205, 0.80)",
+                    highlightFill : "rgba(151,187,205,0.75)",
+                    highlightStroke : "rgba(151,187,205,1)",
+                    data : reputation
+                    }
+                    ]
+                    } ;
+
+                    var myBarChart5 = new Chart ( ctx5 ).Bar (data) ;
+
+                    </script>
+                </div>
+
             </div>
 
             <div  id="footer">
@@ -44,3 +224,4 @@
 
     </body>
 </html>
+

@@ -76,7 +76,7 @@
     </Hierarchy>
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="User-Reputation" caption="User-Reputation" description="User-Reputation">
-    <Hierarchy name="User-Reputation" visible="true" hasAll="true" primaryKey="id" caption="User-Reputation" description="User-Reputation">
+    <Hierarchy name="User-Reputation" visible="true" hasAll="true" caption="User-Reputation" description="User-Reputation">
       <Table name="users" schema="public">
       </Table>
       <Level name="Reputation" visible="true" column="reputation" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Reputation" description="Reputation">
@@ -225,10 +225,6 @@
     <Measure name="max_views" column="views" aggregator="max" caption="max_views" description="max_views" visible="true">
     </Measure>
     <Measure name="max_positive_votes" column="upvotes" aggregator="max" caption="max_positive_votes" description="max_positive_votes" visible="true">
-    </Measure>
-    <Measure name="min_positive_votes" column="upvotes" aggregator="min" caption="min_positive_votes" description="min_positive_votes" visible="true">
-    </Measure>
-    <Measure name="min_negative_votes" column="downvotes" aggregator="min" caption="min_negative_votes" description="min_negative_votes" visible="true">
     </Measure>
     <Measure name="max_negative_votes" column="downvotes" aggregator="max" caption="max_negative_votes" description="max_negative_votes" visible="true">
     </Measure>

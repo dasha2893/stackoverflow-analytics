@@ -6,18 +6,27 @@ import selects.{SelectDataFromUsers, Test}
 
 object Application extends Controller {
 
-   private val test = new Test()
-
   def index () = Action {
 
-    val registerUsersByDate = SelectDataFromUsers.getRegisterUsersByDate
-    println("registerUsersByDate = " + registerUsersByDate)
-
-    Ok(views.html.index("Welcome to stackoverflow analitics", registerUsersByDate))
+    Ok(views.html.index("Welcome to stackoverflow analitics"))
   }
 
   def users () = Action {
-    Ok(views.html.users("Welcome to stackoverflow analitics"))
+    val registerUsersByDate = SelectDataFromUsers.getRegisterUsersByDate
+
+   val countUsersByAge = SelectDataFromUsers.getCountUsersByAge
+
+    val userNamesWithMaxReputation = SelectDataFromUsers.getUserNamesWithMaxReputation
+
+    val userNamesWithMaxPositiveVotes = SelectDataFromUsers.getUserNamesWithMaxPositiveVotes
+
+    val userNamesWithMaxNegativeVotes = SelectDataFromUsers.getUserNamesWithMaxNegativeVotes
+
+    Ok(views.html.users("Welcome to stackoverflow analitics", registerUsersByDate, countUsersByAge,userNamesWithMaxReputation, userNamesWithMaxPositiveVotes, userNamesWithMaxNegativeVotes))
+  }
+
+  def posts () = Action {
+    Ok(views.html.posts("Welcome to stackoverflow analitics"))
   }
 
 }

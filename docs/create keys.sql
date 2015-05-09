@@ -33,12 +33,26 @@ ALTER TABLE tags ADD PRIMARY KEY (id);
 ALTER TABLE postLinks ADD PRIMARY KEY (id);
 ALTER TABLE postLinks ADD  CONSTRAINT postLinks_postId_fkey FOREIGN KEY (postId) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE fact_count_registered_users ADD PRIMARY KEY (id_users);
-ALTER TABLE fact_count_registered_users ADD  CONSTRAINT fact_count_registered_users_id_users_fkey FOREIGN KEY (id_users) REFERENCES users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-
 ALTER TABLE tags ADD CONSTRAINT tags_excerptpostid_fkey FOREIGN KEY (excerptpostid) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE tags ADD  CONSTRAINT tags_wikipostid_fkey FOREIGN KEY (wikipostid) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE dates ADD PRIMARY KEY (datekey);
 
+ALTER TABLE comments_dim ADD CONSTRAINT comments_dim_pkey PRIMARY KEY (id);
+ALTER TABLE comments_dim ADD  CONSTRAINT comments_dim_creation_date_key_fkey FOREIGN KEY (creation_date_key) REFERENCES dates (datekey) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE badges ADD CONSTRAINT badges_pkey PRIMARY KEY (id);
+ALTER TABLE badges ADD CONSTRAINT badges_userid_fkey1 FOREIGN KEY (userid) REFERENCES users_dim (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE post_dim ADD CONSTRAINT post_dim_pkey PRIMARY KEY (id);
+ALTER TABLE post_dim ADD  CONSTRAINT post_dim_date_key_fkey FOREIGN KEY (date_key) REFERENCES dates (datekey) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE posthistory_dim ADD CONSTRAINT posthistory_dim_pkey PRIMARY KEY (id);
+ALTER TABLE posthistory_dim ADD  CONSTRAINT posthistory_dim_creation_date_key_fkey FOREIGN KEY (creation_date_key) REFERENCES dates (datekey) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE users_dim ADD CONSTRAINT users_dim_pkey PRIMARY KEY (id);
+ALTER TABLE users_dim ADD   CONSTRAINT users_dim_creation_date_key_fkey FOREIGN KEY (creation_date_key) REFERENCES dates (datekey) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE votes_dim ADD CONSTRAINT votes_dim_pkey PRIMARY KEY (id);
+ALTER TABLE votes_dim ADD  CONSTRAINT votes_dim_post_id_fkey FOREIGN KEY (post_id) REFERENCES post_dim (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;

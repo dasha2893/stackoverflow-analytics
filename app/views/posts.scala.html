@@ -1,4 +1,4 @@
-@(title: String,json: String)
+@(title: String)
 
 <!DOCTYPE html>
 
@@ -11,6 +11,16 @@
         <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
         <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
         <script type='text/javascript' src='@routes.Assets.at("javascripts/Chart.js")'></script>
+
+
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.common.core.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.common.tooltips.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.common.dynamic.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.pie.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/excanvas.js")'></script>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/demos.css")">
+
+
     </head>
 
     <body>
@@ -34,36 +44,14 @@
             </div>
 
             <div  id="content">
-                <div class="row-fluid">
-                    <div id="chart" class="span6">
-                        <canvas id="myBarChart" width="900" height="500"></canvas>
-                    </div>
-                </div>
+
+
+
 
                 <script>
-                var jsonp = JSON.parse (JSON.stringify (@Html(json))) ;
-                var labels = jsonp.labels ;
-                var datacount = jsonp.datacount ;
-                console.log ( labels ) ;
-                console.log ( datacount ) ;
 
-                var ctx = $ ( "#myBarChart" ).get ( 0 ).getContext ( "2d" ) ;
-
-                var data = {
-                labels : labels,
-                datasets :[ {
-                label : "My Second dataset",
-                fillColor : "rgba(151,187,205,0.5)",
-                strokeColor : "rgba(151,187,205,0.8)",
-                highlightFill : "rgba(151,187,205,0.75)",
-                highlightStroke : "rgba(151,187,205,1)",
-                data : datacount
-                }
-                ]
-                } ;
-
-                var myBarChart = new Chart ( ctx ).Bar ( data ) ;
                 </script>
+
             </div>
 
             <div  id="footer">

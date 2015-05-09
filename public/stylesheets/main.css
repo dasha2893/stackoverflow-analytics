@@ -12,10 +12,19 @@ html,body {
     height: 100%;
 }
 
+#text{
+    text-align: center;
+    color: #07C;
+    line-height: 1.3;
+    margin-top: 2%;
+    margin-bottom: 1.2em;
+    font-size: 18px;
+    font-weight: normal;
+}
 #banner{
     width: 100%;
     height: 5%;
-    background-color: rgba(0, 0, 0, 0.86);
+    background-color: #000000;
     text-align:center;
 
 
@@ -42,7 +51,8 @@ html,body {
     display: inline-block;
     width: 200px;
     height: 50px;
-    float: left;
+    margin-left: 2%;
+    margin-top: 0.5%;
     background-repeat: no-repeat;
     background-image: url("./../images/logo.png"), none;
 }
@@ -80,7 +90,30 @@ ul.css-menu li {
     /*margin-left: 26%;*/
     clear: both;
     width: 100%;
+    min-height: 77%;
     /*height:50%;*/
+
+}
+
+#content-chart{
+    margin-left: 5%;
+    margin-bottom: 5%;
+    width: 85%;
+    overflow: auto;
+}
+
+#content-chart1{
+    float: left;
+    margin-left: 5%;
+    width: 40%;
+    overflow: auto;
+}
+
+#content-chart2{
+    float: right;
+    margin-right: 5%;
+    width: 40%;
+    overflow: auto;
 
 }
 
@@ -91,8 +124,9 @@ ul.css-menu li {
 }
 
 #footer {
+    margin-bottom: -2%;
     width: 100%;
-    background-color: black;
+    background-color: #000000;
     /*position: absolute;  устанавливаю абсолютное позиционирование для блока footer */
     clear: both;
 }
