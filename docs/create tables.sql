@@ -173,7 +173,7 @@ CREATE TABLE users_dim
   age integer
 );
 
-CREATE TABLE post_dim
+CREATE TABLE public.post_dim
 (
   id integer,
   date_key integer,
@@ -181,7 +181,7 @@ CREATE TABLE post_dim
   view_count integer,
   owner_user_id integer,
   favorite_count integer,
-  closed_date timestamp without time zone,
+  closed_date character varying(20),
   community_owned_date timestamp without time zone,
   post_type_name character varying(50)
 );

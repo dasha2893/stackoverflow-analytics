@@ -32,9 +32,20 @@ object Application extends Controller {
     val countPostsByType = SelectDataFromPosts.getCountPostsByType
 
     val avgCountPostsByTypeFromUsers = SelectDataFromPosts.getAvgCountPostsByTypeFromUsers
-    println("avgCountPostsByTypeFromUsers = " + avgCountPostsByTypeFromUsers)
 
-    Ok(views.html.posts("Welcome to stackoverflow analitics", countPosts, countPostsByType, avgCountPostsByTypeFromUsers))
+    val countFavoritePosts = SelectDataFromPosts.getCountFavoritePosts
+
+    val countClosedPosts = SelectDataFromPosts.getCountClosedPosts
+
+    val countClosedPostsByDate = SelectDataFromPosts.getCountClosedPostsByDate
+
+    val countOpenPostsByDate = SelectDataFromPosts.getCountOpenPostsByDate
+
+    val countPostsWikiedByType = SelectDataFromPosts.getCountPostsWikiedByType
+
+    Ok(views.html.posts("Welcome to stackoverflow analitics", countPosts,
+      countPostsByType, avgCountPostsByTypeFromUsers, countFavoritePosts,
+      countClosedPosts, countClosedPostsByDate, countOpenPostsByDate, countPostsWikiedByType))
   }
 
   def tags () = Action {

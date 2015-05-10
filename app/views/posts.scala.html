@@ -1,7 +1,12 @@
 @(title: String,
   countPosts: String ,
   countPostsByType: collection.mutable.ArrayBuffer[(String, String)],
-  avgCountPostsByTypeFromUsers: collection.mutable.ArrayBuffer[(String, String)]
+  avgCountPostsByTypeFromUsers: collection.mutable.ArrayBuffer[(String, String)],
+  countFavoritePosts: String,
+  countClosedPosts: collection.mutable.ArrayBuffer[(String, String)],
+  countClosedPostsByDate: collection.mutable.ArrayBuffer[(String, String)],
+  countOpenPostsByDate: collection.mutable.ArrayBuffer[(String, String)],
+  countPostsWikiedByType: collection.mutable.ArrayBuffer[(String, String)]
   )
 
 <!DOCTYPE html>
@@ -60,13 +65,19 @@
                 <div id="text-left">Average number of answers from user:   <script> document.write(avg[0]) </script></div>
                 <div id="text-left">Average number of questions from user:  <script> document.write(avg[1]) </script> </div>
 
+                <script>
+                var countFavoritePosts = @Html(countFavoritePosts)
+                </script>
+                <div id="text-left">Number of questions marked as Favorite: <script> document.write(countFavoritePosts) </script></div>
 
-                <div id="text">Ratio of the existing answers to questions as a percentage</div>
-                <div id="content-chart">
+
+
+                <div id="content-chart1">
+                    <div id="text">Ratio of the existing answers to questions as a percentage</div>
                     <canvas id="cvs" width="480" height="480"></canvas>
                     <script>
-                    var myLabels = @Html(countPostsByType.map(_._2).toArray.mkString("['","','","']"))
-                    var charData = @Html(countPostsByType.map(_._1).toArray.mkString("[",",","]"))
+                    var myLabels = @Html(countPostsWikiedByType.map(_._2).toArray.mkString("['","','","']"))
+                    var charData = @Html(countPostsWikiedByType.map(_._1).toArray.mkString("[",",","]"))
 
                     $(document).ready(function ()
                     {
@@ -83,6 +94,122 @@
                     options: {
                     labels: labels,
                     tooltips: labels,
+                    colors: ['#EC0033','#A0D300','#FFCD00','#00B869','#999999'],
+                    strokestyle: 'white',
+                    linewidth: 0,
+                    shadow: {
+                    offsetx: 2,
+                    offsety: 2,
+                    blur: 3
+                    },
+                    exploded: 7
+                    }
+                    }).draw()
+                    })
+                    </script>
+                </div>
+
+
+
+                <div id="content-chart2">
+                    <div id="text">Ratio of the existing closed posts to open posts as a percentage</div>
+                    <canvas id="cvs2" width="480" height="480"></canvas>
+                    <script>
+                    var myLabels2 = @Html(countClosedPosts.map(_._2).toArray.mkString("['","','","']"))
+                    var charData2 = @Html(countClosedPosts.map(_._1).toArray.mkString("[",",","]"))
+
+                    $(document).ready(function ()
+                    {
+                    var data2     = charData2;
+                    var labels2   = myLabels2;
+
+                    for (var i=0; i<data2.length; ++i) {
+                    labels2[i] = labels2[i] + ', ' + data2[i] + '%';
+                    }
+
+                    var pie2 = new RGraph.Pie({
+                    id: 'cvs2',
+                    data: data2,
+                    options: {
+                    labels: labels2,
+                    tooltips: labels2,
+                    colors: ['#EC0033','#A0D300','#FFCD00','#00B869','#999999'],
+                    strokestyle: 'white',
+                    linewidth: 0,
+                    shadow: {
+                    offsetx: 2,
+                    offsety: 2,
+                    blur: 3
+                    },
+                    exploded: 7
+                    }
+                    }).draw()
+                    })
+                    </script>
+                </div>
+
+
+
+                <div id="content-chart">
+                    <div id="text">Quantity of the closed and open questions by year and month</div>
+                    <div id="image-open" title="Open questions"> </div>
+                    <div id="image-closed" title="Closed questions"> </div>
+                    <canvas id="myBarChart" width="6500" height="500"></canvas>
+                    <script>
+
+                    var ctxBar = $ ( "#myBarChart" ).get ( 0 ).getContext ( "2d" ) ;
+                    var myBarLabels = @Html(countClosedPostsByDate.map(_._2).toArray.mkString("['","','","']"))
+                    var myBarCharData = @Html(countClosedPostsByDate.map(_._1).toArray.mkString("[",",","]"))
+                    var myBarCharData2 = @Html(countOpenPostsByDate.map(_._1).toArray.mkString("[",",","]"))
+                    var dataBar = {
+                    labels: myBarLabels,
+                    datasets: [
+                    {
+                    label: "My First dataset",
+                    fillColor: "rgba(100, 193, 205, 0.80)",
+                    strokeColor: "rgba(100, 193, 205, 0.80)",
+                    highlightFill: "rgba(220,220,220,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: myBarCharData
+                    },
+                    {
+                    label: "My Second dataset",
+                    fillColor: "rgba(176, 65, 205, 0.50)",
+                    strokeColor: "rgba(176, 65, 205, 0.50)",
+                    highlightFill: "rgba(151,187,205,0.75)",
+                    highlightStroke: "rgba(151,187,205,1)",
+                    data: myBarCharData2
+                    }
+                    ]
+                    };
+                    var myBarChart = new Chart ( ctxBar ).Bar (dataBar) ;
+
+                    </script>
+                </div>
+
+
+                <div id="content-chart1">
+                    <div id="text">Ratio of the existing answers to questions as a percentage community Wikied</div>
+                    <canvas id="cvs3" width="480" height="480" style="margin-left: 30%"></canvas>
+                    <script>
+                    var myLabels3 = @Html(countPostsByType.map(_._2).toArray.mkString("['","','","']"))
+                    var charData3 = @Html(countPostsByType.map(_._1).toArray.mkString("[",",","]"))
+
+                    $(document).ready(function ()
+                    {
+                    var data3     = charData3;
+                    var labels3   = myLabels3;
+
+                    for (var i=0; i<data3.length; ++i) {
+                    labels3[i] = labels3[i] + ', ' + data3[i] + '%';
+                    }
+
+                    var pie3 = new RGraph.Pie({
+                    id: 'cvs3',
+                    data: data3,
+                    options: {
+                    labels: labels3,
+                    tooltips: labels3,
                     colors: ['#EC0033','#A0D300','#FFCD00','#00B869','#999999'],
                     strokestyle: 'white',
                     linewidth: 0,
