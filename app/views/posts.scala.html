@@ -1,4 +1,8 @@
-@(title: String)
+@(title: String,
+  countPosts: String ,
+  countPostsByType: collection.mutable.ArrayBuffer[(String, String)],
+  avgCountPostsByTypeFromUsers: collection.mutable.ArrayBuffer[(String, String)]
+  )
 
 <!DOCTYPE html>
 
@@ -44,14 +48,55 @@
             </div>
 
             <div  id="content">
-
-
+                <script>
+                var countPosts = @Html(countPosts)
+                </script>
+                <div id="text-left">Number of posts: <script> document.write(countPosts) </script></div>
 
 
                 <script>
-
+                var avg = @Html(avgCountPostsByTypeFromUsers.map(_._1).toArray.mkString("[",",","]"))
                 </script>
+                <div id="text-left">Average number of answers from user:   <script> document.write(avg[0]) </script></div>
+                <div id="text-left">Average number of questions from user:  <script> document.write(avg[1]) </script> </div>
 
+
+                <div id="text">Ratio of the existing answers to questions as a percentage</div>
+                <div id="content-chart">
+                    <canvas id="cvs" width="480" height="480"></canvas>
+                    <script>
+                    var myLabels = @Html(countPostsByType.map(_._2).toArray.mkString("['","','","']"))
+                    var charData = @Html(countPostsByType.map(_._1).toArray.mkString("[",",","]"))
+
+                    $(document).ready(function ()
+                    {
+                    var data     = charData;
+                    var labels   = myLabels;
+
+                    for (var i=0; i<data.length; ++i) {
+                    labels[i] = labels[i] + ', ' + data[i] + '%';
+                    }
+
+                    var pie = new RGraph.Pie({
+                    id: 'cvs',
+                    data: data,
+                    options: {
+                    labels: labels,
+                    tooltips: labels,
+                    colors: ['#EC0033','#A0D300','#FFCD00','#00B869','#999999'],
+                    strokestyle: 'white',
+                    linewidth: 0,
+                    shadow: {
+                    offsetx: 2,
+                    offsety: 2,
+                    blur: 3
+                    },
+                    exploded: 7
+                    }
+                    }).draw()
+                    })
+                    </script>
+                </div>
             </div>
 
             <div  id="footer">

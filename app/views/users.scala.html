@@ -3,7 +3,8 @@
   countUsersByAge: collection.mutable.ArrayBuffer[(String, String)],
   userNamesWithMaxReputation : collection.mutable.ArrayBuffer[(String, String)],
   userNamesWithMaxPositiveVotes: collection.mutable.ArrayBuffer[(String, String)],
-  userNamesWithMaxNegativeVotes: collection.mutable.ArrayBuffer[(String, String)]
+  userNamesWithMaxNegativeVotes: collection.mutable.ArrayBuffer[(String, String)],
+  countUsers: String
   )
 
 <!DOCTYPE html>
@@ -45,13 +46,16 @@
                     <li><a href="#">Votes</a></li>
                     <li><a href="#">PostHistory</a></li>
                     <li><a href="#">Comments</a></li>
-                    <li><a href="#">Tags</a></li>
+                    <li><a href="/tags">Tags</a></li>
                     <li><a href="#">Badges</a></li>
                 </ul>
             </div>
 
             <div  id="content">
-
+                <script>
+                var countUsers = @Html(countUsers)
+                </script>
+                <div id="text-left">Number of registered users: <script> document.write(countUsers) </script></div>
                 <div id="text">This statistic shows the total number of registered users for every month since site inception</div>
                 <div id="content-chart">
                             <canvas id="myLineChart" width="1800" height="500"></canvas>

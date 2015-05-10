@@ -1,8 +1,7 @@
 package controllers
 
 import play.api.mvc.{Action, _}
-import play.api.libs.json._
-import selects.{SelectDataFromUsers, Test}
+import selects.{SelectDataFromUsers, SelectDataFromTags, SelectDataFromPosts}
 
 object Application extends Controller {
 
@@ -12,9 +11,11 @@ object Application extends Controller {
   }
 
   def users () = Action {
+    val countUsers = SelectDataFromUsers.getCountUsers
+
     val registerUsersByDate = SelectDataFromUsers.getRegisterUsersByDate
 
-   val countUsersByAge = SelectDataFromUsers.getCountUsersByAge
+    val countUsersByAge = SelectDataFromUsers.getCountUsersByAge
 
     val userNamesWithMaxReputation = SelectDataFromUsers.getUserNamesWithMaxReputation
 
@@ -22,11 +23,24 @@ object Application extends Controller {
 
     val userNamesWithMaxNegativeVotes = SelectDataFromUsers.getUserNamesWithMaxNegativeVotes
 
-    Ok(views.html.users("Welcome to stackoverflow analitics", registerUsersByDate, countUsersByAge,userNamesWithMaxReputation, userNamesWithMaxPositiveVotes, userNamesWithMaxNegativeVotes))
+    Ok(views.html.users("Welcome to stackoverflow analitics", registerUsersByDate, countUsersByAge,userNamesWithMaxReputation, userNamesWithMaxPositiveVotes, userNamesWithMaxNegativeVotes, countUsers))
   }
 
   def posts () = Action {
-    Ok(views.html.posts("Welcome to stackoverflow analitics"))
+    val countPosts = SelectDataFromPosts.getCountPosts
+
+    val countPostsByType = SelectDataFromPosts.getCountPostsByType
+
+    val avgCountPostsByTypeFromUsers = SelectDataFromPosts.getAvgCountPostsByTypeFromUsers
+    println("avgCountPostsByTypeFromUsers = " + avgCountPostsByTypeFromUsers)
+
+    Ok(views.html.posts("Welcome to stackoverflow analitics", countPosts, countPostsByType, avgCountPostsByTypeFromUsers))
+  }
+
+  def tags () = Action {
+    val countTags = SelectDataFromTags.getCountTags
+    val popularTags = SelectDataFromTags.getPopularTags
+    Ok(views.html.tags("Welcome to stackoverflow analitics", countTags, popularTags))
   }
 
 }

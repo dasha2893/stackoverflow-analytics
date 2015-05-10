@@ -1,20 +1,36 @@
 package selects
 
 import java.text.{DecimalFormat, NumberFormat}
-
 import org.olap4j.{Cell, CellSet, OlapStatement}
-import org.olap4j.OlapConnection
-import org.olap4j._
-import org.olap4j.metadata.Member
-import org.olap4j.metadata.Cube
-import org.olap4j.metadata.NamedList
-
 import scala.collection.JavaConversions._
 
 /**
  * Created by user on 07.05.2015.
  */
 object SelectDataFromUsers {
+
+  def getCountUsers = {
+
+    var countUsers = ""
+    val olapStatement = new ConnectToMondrian().getStatement()
+
+    val mdx: String = "SELECT\n" +
+      "NON EMPTY {Hierarchize({[Id.Users-UserId].[All Users-UserIds]})} ON COLUMNS,\n" +
+      "NON EMPTY {Hierarchize({[Measures].[count_users]})} ON ROWS\n" +
+      "FROM [data_users]"
+
+    val cellSet = olapStatement.executeOlapQuery(mdx)
+
+    for (row <- cellSet.getAxes.get(1)) {
+      for (column <- cellSet.getAxes.get(0)) {
+        val cell = cellSet.getCell(column, row)
+        countUsers = cell.getDoubleValue.toString
+
+      }
+    }
+    countUsers
+  }
+
 
   def getRegisterUsersByDate = {
 
