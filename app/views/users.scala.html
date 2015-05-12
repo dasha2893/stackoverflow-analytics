@@ -55,10 +55,10 @@
                 <script>
                 var countUsers = @Html(countUsers)
                 </script>
-                <div id="text-left">Number of registered users: <script> document.write(countUsers) </script></div>
+                <div id="text-left">Number of registered users: <span class="colortext"><script> document.write(" "+countUsers) </script></span></div>
                 <div id="text">This statistic shows the total number of registered users for every month since site inception</div>
                 <div id="content-chart">
-                            <canvas id="myLineChart" width="1800" height="500"></canvas>
+                            <canvas id="myLineChart"></canvas>
                     <script>
 
                     var ctx = $ ( "#myLineChart" ).get ( 0 ).getContext ( "2d" ) ;

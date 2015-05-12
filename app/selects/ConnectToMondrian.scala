@@ -16,7 +16,7 @@ class ConnectToMondrian {
   val olapConnection: OlapConnection = DriverManager.getConnection("jdbc:mondrian: "
     + "JdbcDrivers=org.postgresql.Driver; "
     + "Jdbc=jdbc:postgresql://localhost:5432/stackoverflow?user=postgres&password=123; "
-    + "Catalog=C:\\Users\\user\\Desktop\\d\\cube-stackoverflow.xml; ").asInstanceOf[OlapConnection]
+    + "Catalog=D:\\d\\cube-stackoverflow.xml; ").asInstanceOf[OlapConnection]
 
   val cubes: NamedList[Cube] = olapConnection.getOlapSchema.getCubes
   

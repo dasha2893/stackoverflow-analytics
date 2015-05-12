@@ -14,7 +14,8 @@ scalaVersion := "2.11.1"
 //  file("libs/log4j-1.2.17.jar")
 //)
 
-libraryDependencies ++= Seq(  javaJdbc,
+libraryDependencies ++= Seq(
+  javaJdbc,
   javaEbean,
   cache,
   javaWs,

@@ -15,12 +15,14 @@ html,body {
 #text{
     clear: both;
     text-align: center;
-    color: #07C;
+    color: #ff9908;
     line-height: 1.3;
     margin-top: 4%;
     margin-bottom: 1.2em;
     font-size: 18px;
     font-weight: normal;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+
 }
 
 #text-left{
@@ -29,14 +31,13 @@ html,body {
     color: #000000;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     line-height: 1.3;
-    /*margin-bottom: 2%;*/
     font-size: 18px;
     font-weight: normal;
 }
 
 #banner{
     width: 100%;
-    height: 5%;
+    height: 7%;
     background-color: #000000;
     text-align:center;
 
@@ -44,14 +45,16 @@ html,body {
 }
 
 #titleLink{
-    text-decoration: none;
     font-family: proxima-nova,Helvetica Neue,Helvetica,sans-serif;
     text-decoration: none;
-    /*font-weight: bold;*/
-    color: ghostwhite;
+    display: inline-block;
+    height: 24px;
+    padding: 10px 7px 0px;
+    vertical-align: top;
+    color: orange;
     font-size: 24px;
     font-weight: 600;
-    padding: 6px
+
 }
 
 
@@ -78,8 +81,7 @@ html,body {
     margin-top: 0.5%;
     background-repeat: no-repeat;
     background-image: url("./../images/open.png"), none;
-    /*padding: 10px; *//* Ширина паспарту */
-    /*background: #ea32f0; *//* Цвет фона  паспарту */
+
     border: 2px solid #d114d0; /* Параметры рамки */
 }
 
@@ -120,18 +122,16 @@ ul.css-menu li {
  ul.css-menu li a:hover {
     padding: 6px 10px 6px 10px;
     font-weight: normal;
-    background-color: orange;
+    background-color: #ff9908;
     color: ghostwhite;
 }
 
 
 #content {
-    /*margin-left: 26%;*/
     clear: both;
     width: 100%;
     min-height: 77%;
     margin-top: 5%;
-    /*height:50%;*/
 
 }
 
@@ -146,8 +146,7 @@ ul.css-menu li {
 #content-chart1{
     float: left;
     margin-left: 5%;
-    width: 40%;
-    overflow: auto;
+    width: 45%;
 }
 
 #content-chart2{
@@ -155,7 +154,6 @@ ul.css-menu li {
     margin-right: 5%;
     width: 40%;
     overflow: auto;
-    /*color: rgba(176, 65, 205, 0.50);*/
 
 }
 
@@ -170,8 +168,9 @@ ul.css-menu li {
     margin-top: 15%;
     width: 100%;
     background-color: #000000;
-    /*position: absolute;  устанавливаю абсолютное позиционирование для блока footer */
     clear: both;
 }
 
-
+.colortext {
+    color: #ff9908; /* Красный цвет выделения */
+}

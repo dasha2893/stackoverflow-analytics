@@ -19,7 +19,7 @@
         <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
         <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
         <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
-        <script type='text/javascript' src='@routes.Assets.at("javascripts/Chart.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/ChartNew.js")'></script>
 
 
         <script type='text/javascript' src='@routes.Assets.at("javascripts/RGraph.common.core.js")'></script>
@@ -56,19 +56,19 @@
                 <script>
                 var countPosts = @Html(countPosts)
                 </script>
-                <div id="text-left">Number of posts: <script> document.write(countPosts) </script></div>
+                <div id="text-left">Number of posts: <span class="colortext"><script> document.write(" " + countPosts) </script></span></div>
 
 
                 <script>
                 var avg = @Html(avgCountPostsByTypeFromUsers.map(_._1).toArray.mkString("[",",","]"))
                 </script>
-                <div id="text-left">Average number of answers from user:   <script> document.write(avg[0]) </script></div>
-                <div id="text-left">Average number of questions from user:  <script> document.write(avg[1]) </script> </div>
+                <div id="text-left">Average number of answers from user:<span class="colortext"><script> document.write(" "+ avg[0])</script></span></div>
+                <div id="text-left">Average number of questions from user:<span class="colortext"><script> document.write(" "+avg[1]) </script></span></div>
 
                 <script>
                 var countFavoritePosts = @Html(countFavoritePosts)
                 </script>
-                <div id="text-left">Number of questions marked as Favorite: <script> document.write(countFavoritePosts) </script></div>
+                <div id="text-left">Number of questions marked as Favorite:<span class="colortext"><script> document.write(" "+countFavoritePosts) </script></span></div>
 
 
 
@@ -152,43 +152,52 @@
 
                 <div id="content-chart">
                     <div id="text">Quantity of the closed and open questions by year and month</div>
-                    <div id="image-open" title="Open questions"> </div>
-                    <div id="image-closed" title="Closed questions"> </div>
-                    <canvas id="myBarChart" width="6500" height="500"></canvas>
+
+                    <canvas id="canvas_Bar1" width="6500" height="500"></canvas>
                     <script>
 
-                    var ctxBar = $ ( "#myBarChart" ).get ( 0 ).getContext ( "2d" ) ;
+//                    var ctxBar = $ ( "#myBarChart" ).get ( 0 ).getContext ( "2d" ) ;
                     var myBarLabels = @Html(countClosedPostsByDate.map(_._2).toArray.mkString("['","','","']"))
                     var myBarCharData = @Html(countClosedPostsByDate.map(_._1).toArray.mkString("[",",","]"))
                     var myBarCharData2 = @Html(countOpenPostsByDate.map(_._1).toArray.mkString("[",",","]"))
                     var dataBar = {
-                    labels: myBarLabels,
-                    datasets: [
-                    {
-                    label: "My First dataset",
-                    fillColor: "rgba(100, 193, 205, 0.80)",
-                    strokeColor: "rgba(100, 193, 205, 0.80)",
-                    highlightFill: "rgba(220,220,220,0.75)",
-                    highlightStroke: "rgba(220,220,220,1)",
-                    data: myBarCharData
-                    },
-                    {
-                    label: "My Second dataset",
-                    fillColor: "rgba(176, 65, 205, 0.50)",
-                    strokeColor: "rgba(176, 65, 205, 0.50)",
-                    highlightFill: "rgba(151,187,205,0.75)",
-                    highlightStroke: "rgba(151,187,205,1)",
-                    data: myBarCharData2
-                    }
-                    ]
+                        labels: myBarLabels,
+                        datasets: [
+                            {
+                                label: "My First dataset",
+                                fillColor: "rgba(100, 193, 205, 0.80)",
+                                strokeColor: "rgba(100, 193, 205, 0.80)",
+                                highlightFill: "rgba(220,220,220,0.75)",
+                                highlightStroke: "rgba(220,220,220,1)",
+                                data: myBarCharData,
+                                title: "Closed questions"
+                            },
+                            {
+                                label: "My Second dataset",
+                                fillColor: "rgba(176, 65, 205, 0.50)",
+                                strokeColor: "rgba(176, 65, 205, 0.50)",
+                                highlightFill: "rgba(151,187,205,0.75)",
+                                highlightStroke: "rgba(151,187,205,1)",
+                                data: myBarCharData2,
+                                title: "Open questions"
+                            }
+                        ]
                     };
-                    var myBarChart = new Chart ( ctxBar ).Bar (dataBar) ;
+
+                    var options = {
+                        legend : true,
+                        inGraphDataShow : true,
+                        annotateDisplay : true,
+                        graphTitleFontSize: 18
+                    };
+                     new Chart(document.getElementById("canvas_Bar1").getContext("2d")).Bar(dataBar,options);
+
 
                     </script>
                 </div>
 
 
-                <div id="content-chart1">
+                <div id="content-chart">
                     <div id="text">Ratio of the existing answers to questions as a percentage community Wikied</div>
                     <canvas id="cvs3" width="480" height="480" style="margin-left: 30%"></canvas>
                     <script>

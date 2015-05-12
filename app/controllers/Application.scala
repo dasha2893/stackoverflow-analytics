@@ -1,13 +1,13 @@
 package controllers
 
 import play.api.mvc.{Action, _}
-import selects.{SelectDataFromUsers, SelectDataFromTags, SelectDataFromPosts}
+import selects.{SelectDataFromUsers, SelectDataFromTags, SelectDataFromPosts, SelectDataFromBadges}
 
 object Application extends Controller {
 
   def index () = Action {
 
-    Ok(views.html.index("Welcome to stackoverflow analitics"))
+    Ok(views.html.index("Stackoverflow Analytics"))
   }
 
   def users () = Action {
@@ -23,7 +23,7 @@ object Application extends Controller {
 
     val userNamesWithMaxNegativeVotes = SelectDataFromUsers.getUserNamesWithMaxNegativeVotes
 
-    Ok(views.html.users("Welcome to stackoverflow analitics", registerUsersByDate, countUsersByAge,userNamesWithMaxReputation, userNamesWithMaxPositiveVotes, userNamesWithMaxNegativeVotes, countUsers))
+    Ok(views.html.users("Stackoverflow Analytics", registerUsersByDate, countUsersByAge,userNamesWithMaxReputation, userNamesWithMaxPositiveVotes, userNamesWithMaxNegativeVotes, countUsers))
   }
 
   def posts () = Action {
@@ -43,7 +43,7 @@ object Application extends Controller {
 
     val countPostsWikiedByType = SelectDataFromPosts.getCountPostsWikiedByType
 
-    Ok(views.html.posts("Welcome to stackoverflow analitics", countPosts,
+    Ok(views.html.posts("Stackoverflow Analytics", countPosts,
       countPostsByType, avgCountPostsByTypeFromUsers, countFavoritePosts,
       countClosedPosts, countClosedPostsByDate, countOpenPostsByDate, countPostsWikiedByType))
   }
@@ -51,7 +51,15 @@ object Application extends Controller {
   def tags () = Action {
     val countTags = SelectDataFromTags.getCountTags
     val popularTags = SelectDataFromTags.getPopularTags
-    Ok(views.html.tags("Welcome to stackoverflow analitics", countTags, popularTags))
+    Ok(views.html.tags("Stackoverflow Analytics", countTags, popularTags))
   }
 
+
+  def badges () = Action {
+
+    val countBadges = SelectDataFromBadges.getCountBadges
+    val countTypeBadges = SelectDataFromBadges.getCountTypeBadges
+
+    Ok(views.html.badges("Stackoverflow Analytics", countBadges, countTypeBadges))
+  }
 }
