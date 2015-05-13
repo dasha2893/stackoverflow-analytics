@@ -1,9 +1,9 @@
 <Schema name="cube-stackoverflow" description="cube-stackoverflow">
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Posts-OwnerUserId" caption="Posts-OwnerUserId" description="Posts-OwnerUserId">
     <Hierarchy name="Posts-OwnerUserId" visible="true" hasAll="true" primaryKey="id" caption="Posts-OwnerUserId" description="Posts-OwnerUserId">
-      <Table name="post_dim" schema="public">
+      <Table name="posts" schema="public">
       </Table>
-      <Level name="UserId" visible="true" column="owner_user_id" nameColumn="owner_user_id" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="UserId" description="UserId">
+      <Level name="UserId" visible="true" column="owneruserid" nameColumn="owneruserid" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="UserId" description="UserId">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -21,31 +21,31 @@
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Post-type" caption="Post-type" description="Post-type">
     <Hierarchy name="Post-type" visible="true" hasAll="true" primaryKey="id" caption="Post-type" description="Post-type">
-      <Table name="post_dim" schema="public">
+      <Table name="posttypes" schema="public">
       </Table>
-      <Level name="Post-type" visible="true" column="post_type_name" nameColumn="post_type_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Post-type" description="Post-type">
+      <Level name="Post-type" visible="true" column="name" nameColumn="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Post-type" description="Post-type">
       </Level>
     </Hierarchy>
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Posts-FavoriteCount" caption="Posts-FavoriteCount" description="Posts-FavoriteCount">
     <Hierarchy name="Posts-FavoriteCount" visible="true" hasAll="true" primaryKey="id" caption="Posts-FavoriteCount" description="Posts-FavoriteCount">
-      <Table name="post_dim" schema="public">
+      <Table name="posts" schema="public">
       </Table>
-      <Level name="Posts-FavoriteCount" visible="true" column="favorite_count" nameColumn="favorite_count" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Posts-FavoriteCount" description="Posts-FavoriteCount">
+      <Level name="Posts-FavoriteCount" visible="true" column="favoritecount" nameColumn="favoritecount" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Posts-FavoriteCount" description="Posts-FavoriteCount">
       </Level>
     </Hierarchy>
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Posts-ClosedDate" caption="Posts-ClosedDate" description="Posts-ClosedDate">
     <Hierarchy name="Posts-ClosedDate" visible="true" hasAll="true" primaryKey="id" caption="Posts-ClosedDate" description="Posts-ClosedDate">
-      <Table name="post_dim" schema="public">
+      <Table name="posts" schema="public">
       </Table>
-      <Level name="ClosedDate" visible="true" column="closed_date" nameColumn="closed_date" type="Timestamp" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="ClosedDate" description="ClosedDate">
+      <Level name="ClosedDate" visible="true" column="closeddate" nameColumn="closeddate" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="ClosedDate" description="ClosedDate">
       </Level>
     </Hierarchy>
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Post-Id" caption="Post-Id" description="Post-Id">
     <Hierarchy name="Post-Id" visible="true" hasAll="true" primaryKey="id" caption="Post-Id" description="Post-Id">
-      <Table name="post_dim" schema="public">
+      <Table name="posts" schema="public">
       </Table>
       <Level name="Post-Id" visible="true" column="id" nameColumn="id" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Post-Id" description="Post-Id">
       </Level>
@@ -53,9 +53,9 @@
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Posts-Wikied" caption="Posts-Wikied" description="Posts-Wikied">
     <Hierarchy name="Posts-Wikied" visible="true" hasAll="true" primaryKey="id" caption="Posts-Wikied" description="Posts-Wikied">
-      <Table name="post_dim" schema="public">
+      <Table name="posts" schema="public">
       </Table>
-      <Level name="Posts-Wikied" visible="true" column="community_owned_date" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Posts-Wikied" description="Posts-Wikied">
+      <Level name="Posts-Wikied" visible="true" column="communityowneddate" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Posts-Wikied" description="Posts-Wikied">
       </Level>
     </Hierarchy>
   </Dimension>
@@ -85,7 +85,7 @@
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Users-UserId" caption="Users-UserId" description="Users-UserId">
     <Hierarchy name="Users-UserId" visible="true" hasAll="true" primaryKey="id" caption="Users-UserId" description="Users-UserId">
-      <Table name="users_dim" schema="public">
+      <Table name="users" schema="public">
       </Table>
       <Level name="UserId" visible="true" column="id" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="UserId" description="UserId">
       </Level>
@@ -93,7 +93,7 @@
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Users-Name" caption="Users-Name" description="Users-Name">
     <Hierarchy name="Users-Name" visible="true" hasAll="true" primaryKey="id" caption="Users-Name" description="Users-Name">
-      <Table name="users_dim" schema="public">
+      <Table name="users" schema="public">
       </Table>
       <Level name="Name" visible="true" column="displayname" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Name" description="Name">
       </Level>
@@ -101,7 +101,7 @@
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Users-PositiveVotes" caption="Users-PositiveVotes" description="Users-PositiveVotes">
     <Hierarchy name="Users-PositiveVotes" visible="true" hasAll="true" primaryKey="id" caption="Users-PositiveVotes" description="Users-PositiveVotes">
-      <Table name="users_dim" schema="public">
+      <Table name="users" schema="public">
       </Table>
       <Level name="PositiveVotes" visible="true" column="upvotes" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="PositiveVotes" description="PositiveVotes">
       </Level>
@@ -109,7 +109,7 @@
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Users-NegativeVotes" caption="Users-NegativeVotes" description="Users-NegativeVotes">
     <Hierarchy name="Users-NegativeVotes" visible="true" hasAll="true" primaryKey="id" caption="Users-NegativeVotes" description="Users-NegativeVotes">
-      <Table name="users_dim" schema="public">
+      <Table name="users" schema="public">
       </Table>
       <Level name="NegativeVotes" visible="true" column="downvotes" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="NegativeVotes" description="NegativeVotes">
       </Level>
@@ -117,15 +117,15 @@
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="PostHistory-TypeName" caption="PostHistory-TypeName" description="PostHistory-TypeName">
     <Hierarchy name="PostHistory-TypeName" visible="true" hasAll="true" primaryKey="id" caption="PostHistory-TypeName" description="PostHistory-TypeName">
-      <Table name="posthistory_dim" schema="public">
+      <Table name="posthistorytypes" schema="public">
       </Table>
-      <Level name="TypeName" visible="true" column="post_history_type_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="TypeName" description="TypeName">
+      <Level name="TypeName" visible="true" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="TypeName" description="TypeName">
       </Level>
     </Hierarchy>
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="PostHistory-Id" caption="PostHistory-Id" description="PostHistory-Id">
     <Hierarchy name="PostHistory-Id" visible="true" hasAll="true" primaryKey="id" caption="PostHistory-Id" description="PostHistory-Id">
-      <Table name="posthistory_dim" schema="public">
+      <Table name="posthistory" schema="public">
       </Table>
       <Level name="Id" visible="true" column="id" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Id" description="Id">
       </Level>
@@ -157,50 +157,50 @@
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Votes-TypeName" caption="Votes-TypeName" description="Votes-TypeName">
     <Hierarchy name="Votes-TypeName" visible="true" hasAll="true" primaryKey="id" caption="Votes-TypeName" description="Votes-TypeName">
-      <Table name="votes_dim" schema="public">
+      <Table name="votetypes" schema="public">
       </Table>
-      <Level name="TypeName" visible="true" column="vote_type_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="TypeName" description="TypeName">
+      <Level name="TypeName" visible="true" column="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="TypeName" description="TypeName">
       </Level>
     </Hierarchy>
   </Dimension>
   <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Comment-Id" caption="Comment-Id" description="Comment-Id">
     <Hierarchy name="Comment-Id" visible="true" hasAll="true" primaryKey="id" caption="Comment-Id" description="Comment-Id">
-      <Table name="comments_dim" schema="public">
+      <Table name="comments" schema="public">
       </Table>
       <Level name="Id" visible="true" column="id" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Id" description="Id">
       </Level>
     </Hierarchy>
   </Dimension>
   <Cube name="data_posts" caption="data_posts" visible="true" description="data_posts" cache="true" enabled="true">
-    <Table name="post_dim" schema="public">
+    <Table name="posts" schema="public">
     </Table>
-    <DimensionUsage source="Posts-OwnerUserId" name="OwnerUserId" caption="OwnerUserId" visible="true" foreignKey="owner_user_id" highCardinality="false">
+    <DimensionUsage source="Posts-OwnerUserId" name="OwnerUserId" caption="OwnerUserId" visible="true" foreignKey="owneruserid" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Date" name="Date" caption="Date" visible="true" foreignKey="date_key" highCardinality="false">
+    <DimensionUsage source="Date" name="Date" caption="Date" visible="true" foreignKey="datekey" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Post-type" name="Post-type" visible="true" foreignKey="post_type_name" highCardinality="false">
+    <DimensionUsage source="Post-type" name="Post-type" visible="true" foreignKey="posttypeid" highCardinality="false">
     </DimensionUsage>
     <DimensionUsage source="Post-Id" name="Post-Id" caption="Post-Id" visible="true" foreignKey="id" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Posts-FavoriteCount" name="FavoriteCount" caption="FavoriteCount" visible="true" foreignKey="favorite_count" highCardinality="false">
+    <DimensionUsage source="Posts-FavoriteCount" name="FavoriteCount" caption="FavoriteCount" visible="true" foreignKey="favoritecount" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Posts-ClosedDate" name="ClosedDate" caption="ClosedDate" visible="true" foreignKey="closed_date" highCardinality="false">
+    <DimensionUsage source="Posts-ClosedDate" name="ClosedDate" caption="ClosedDate" visible="true" foreignKey="closeddate" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Posts-Wikied" name="Posts-Wikied" caption="Posts-Wikied" visible="true" foreignKey="community_owned_date" highCardinality="false">
+    <DimensionUsage source="Posts-Wikied" name="Posts-Wikied" caption="Posts-Wikied" visible="true" foreignKey="communityowneddate" highCardinality="false">
     </DimensionUsage>
     <Measure name="count_posts" column="id" aggregator="count" caption="count_posts" description="count_posts" visible="true">
     </Measure>
-    <Measure name="count_all_users" column="owner_user_id" aggregator="count" caption="count_all_users" description="count_all_users" visible="true">
+    <Measure name="count_all_users" column="owneruserid" aggregator="count" caption="count_all_users" description="count_all_users" visible="true">
     </Measure>
-    <Measure name="count_favorite_posts" column="favorite_count" aggregator="count" caption="count_favorite_posts" description="count_favorite_posts" visible="true">
+    <Measure name="count_favorite_posts" column="favoritecount" aggregator="count" caption="count_favorite_posts" description="count_favorite_posts" visible="true">
     </Measure>
-    <Measure name="count_closed_posts" column="closed_date" aggregator="count" caption="count_closed_posts" description="count_closed_posts" visible="true">
+    <Measure name="count_closed_posts" column="closeddate" aggregator="count" caption="count_closed_posts" description="count_closed_posts" visible="true">
     </Measure>
-    <Measure name="count_posts_wikied" column="community_owned_date" aggregator="count" caption="count_posts_wikied" description="count_posts_wikied" visible="true">
+    <Measure name="count_posts_wikied" column="communityowneddate" aggregator="count" caption="count_posts_wikied" description="count_posts_wikied" visible="true">
     </Measure>
   </Cube>
   <Cube name="data_users" caption="data_users" visible="true" description="data_users" cache="true" enabled="true">
-    <Table name="users_dim" schema="public">
+    <Table name="users" schema="public">
     </Table>
     <DimensionUsage source="User-age" name="Age" caption="age" visible="true" foreignKey="age" highCardinality="false">
     </DimensionUsage>
@@ -210,7 +210,7 @@
     </DimensionUsage>
     <DimensionUsage source="Users-UserId" name="Id" caption="Id" visible="true" foreignKey="id" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Date" name="Data" caption="Data" visible="true" foreignKey="creation_date_key" highCardinality="false">
+    <DimensionUsage source="Date" name="Data" caption="Data" visible="true" foreignKey="datekey" highCardinality="false">
     </DimensionUsage>
     <DimensionUsage source="Users-Name" name="Name" caption="Name" visible="true" foreignKey="displayname" highCardinality="false">
     </DimensionUsage>
@@ -230,13 +230,13 @@
     </Measure>
   </Cube>
   <Cube name="data_postHistory" caption="data_postHistory" visible="true" description="data_postHistory" cache="true" enabled="true">
-    <Table name="posthistory_dim" schema="public">
+    <Table name="posthistory" schema="public">
     </Table>
-    <DimensionUsage source="PostHistory-TypeName" name="TypeName" caption="TypeName" visible="true" foreignKey="post_history_type_name" highCardinality="false">
+    <DimensionUsage source="PostHistory-TypeName" name="TypeName" caption="TypeName" visible="true" foreignKey="posthistorytypeid" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Date" name="Date" caption="Date" visible="true" foreignKey="creation_date_key" highCardinality="false">
+    <DimensionUsage source="Date" name="Date" caption="Date" visible="true" foreignKey="datekey" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Post-Id" name="PostId" caption="PostId" visible="true" foreignKey="post_id" highCardinality="false">
+    <DimensionUsage source="Post-Id" name="PostId" caption="PostId" visible="true" foreignKey="postid" highCardinality="false">
     </DimensionUsage>
     <DimensionUsage source="PostHistory-Id" name="Id" caption="Id" visible="true" foreignKey="id" highCardinality="false">
     </DimensionUsage>
@@ -268,25 +268,25 @@
     </Measure>
   </Cube>
   <Cube name="data_votes" caption="data_votes" visible="true" description="data_votes" cache="true" enabled="true">
-    <Table name="votes_dim" schema="public">
+    <Table name="votes" schema="public">
     </Table>
-    <DimensionUsage source="Votes-TypeName" name="TypeName" caption="TypeName" visible="true" foreignKey="vote_type_name" highCardinality="false">
+    <DimensionUsage source="Votes-TypeName" name="TypeName" caption="TypeName" visible="true" foreignKey="votetypeid" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Post-Id" name="Post-Id" caption="Post-Id" visible="true" foreignKey="post_id" highCardinality="false">
+    <DimensionUsage source="Post-Id" name="Post-Id" caption="Post-Id" visible="true" foreignKey="postid" highCardinality="false">
     </DimensionUsage>
-    <Measure name="count_type_votes" column="vote_type_name" aggregator="distinct count" caption="count_type_votes" description="count_type_votes" visible="true">
+    <Measure name="count_type_votes" column="votetypeid" aggregator="distinct count" caption="count_type_votes" description="count_type_votes" visible="true">
     </Measure>
     <Measure name="count_votes" column="id" aggregator="count" caption="count_votes" description="count_votes" visible="true">
     </Measure>
   </Cube>
   <Cube name="data_comments" caption="data_comments" visible="true" description="data_comments" cache="true" enabled="true">
-    <Table name="comments_dim" schema="public">
+    <Table name="comments" schema="public">
     </Table>
-    <DimensionUsage source="Date" name="Date" caption="Date" visible="true" foreignKey="creation_date_key" highCardinality="false">
+    <DimensionUsage source="Date" name="Date" caption="Date" visible="true" foreignKey="datekey" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Post-Id" name="Post-Id" caption="Post-Id" visible="true" foreignKey="post_id" highCardinality="false">
+    <DimensionUsage source="Post-Id" name="Post-Id" caption="Post-Id" visible="true" foreignKey="postid" highCardinality="false">
     </DimensionUsage>
-    <DimensionUsage source="Comment-Id" name="Id" caption="Id" visible="true" foreignKey="id" highCardinality="false">
+    <DimensionUsage source="Comment-Id" name="IdComment" caption="IdComment" visible="true" foreignKey="id" highCardinality="false">
     </DimensionUsage>
     <Measure name="count_comments" column="id" aggregator="count" caption="count_comments" description="count_comments" visible="true">
     </Measure>
@@ -302,15 +302,21 @@
     </VirtualCubeDimension>
     <VirtualCubeDimension cubeName="data_badges" caption="Badges-Name" visible="true" highCardinality="false" name="Badges-Name">
     </VirtualCubeDimension>
+    <VirtualCubeDimension cubeName="data_comments" caption="IdComment" name="IdComment">
+    </VirtualCubeDimension>
     <VirtualCubeMeasure cubeName="data_posts" name="[Measures].[count_posts]" visible="true">
     </VirtualCubeMeasure>
     <VirtualCubeMeasure cubeName="data_posts" name="[Measures].[count_all_users]" visible="true">
     </VirtualCubeMeasure>
     <VirtualCubeMeasure cubeName="data_badges" name="[Measures].[count_badges]" visible="true">
     </VirtualCubeMeasure>
+    <VirtualCubeMeasure cubeName="data_comments" name="[Measures].[count_comments]" visible="true">
+    </VirtualCubeMeasure>
     <CalculatedMember name="avg_number_of_posts_from_users" caption="avg_number_of_posts_from_users" description="avg_number_of_posts_from_users" formula="[Measures].[count_posts] / [Measures].[count_all_users]" dimension="Measures" visible="true">
     </CalculatedMember>
-    <CalculatedMember name="avg_number_of_badges_from_users" caption="avg_number_of_badges_from_users" description="avg_number_of_badges_from_users" formula="[Measures].[count_badges] / [Measures].[count_badges]" dimension="Measures" visible="true">
+    <CalculatedMember name="avg_number_of_badges_from_users" caption="avg_number_of_badges_from_users" description="avg_number_of_badges_from_users" formula="[Measures].[count_badges] / [Measures].[count_all_users]" dimension="Measures" visible="true">
+    </CalculatedMember>
+    <CalculatedMember name="avg_number_of_comments_from_posts"  caption="avg_number_of_comments_from_posts" description="avg_number_of_comments_from_posts" formula="[Measures].[count_posts] / [Measures].[count_comments]" dimension="Measures" visible="true">
     </CalculatedMember>
   </VirtualCube>
 </Schema>

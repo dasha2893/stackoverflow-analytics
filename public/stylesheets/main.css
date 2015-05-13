@@ -73,30 +73,6 @@ html,body {
     background-image: url("./../images/logo.png"), none;
 }
 
-#image-open{
-    display: inline-block;
-    width: 32px;
-    height: 29px;
-    margin-left: 2%;
-    margin-top: 0.5%;
-    background-repeat: no-repeat;
-    background-image: url("./../images/open.png"), none;
-
-    border: 2px solid #d114d0; /* Параметры рамки */
-}
-
-#image-closed{
-    display: inline-block;
-    width: 35px;
-    height: 30px;
-    margin-left: 2%;
-    margin-top: 0.5%;
-    background-repeat: no-repeat;
-    background-image: url("./../images/closed.png"), none;
-    border: 2px solid #3bcaff; /* Параметры рамки */
-
-
-}
 
  ul.css-menu{
     list-style: none;
@@ -167,8 +143,10 @@ ul.css-menu li {
     margin-bottom: -2%;
     margin-top: 15%;
     width: 100%;
+    min-height: 3%;
     background-color: #000000;
     clear: both;
+
 }
 
 .colortext {

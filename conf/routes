@@ -8,6 +8,9 @@ GET        /users                controllers.Application.users()
 GET        /posts                controllers.Application.posts()
 GET        /tags                 controllers.Application.tags()
 GET        /badges               controllers.Application.badges()
+GET        /votes                controllers.Application.votes()
+GET        /comments             controllers.Application.comments()
+
 
 
 # Map static resources from the /public folder to the /assets URL path

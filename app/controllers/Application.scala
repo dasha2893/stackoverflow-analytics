@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.mvc.{Action, _}
-import selects.{SelectDataFromUsers, SelectDataFromTags, SelectDataFromPosts, SelectDataFromBadges}
+import selects.{SelectDataFromUsers, SelectDataFromTags, SelectDataFromPosts, SelectDataFromBadges, SelectDataFromVotes, SelectDataFromComments}
 
 object Application extends Controller {
 
@@ -39,13 +39,12 @@ object Application extends Controller {
 
     val countClosedPostsByDate = SelectDataFromPosts.getCountClosedPostsByDate
 
-    val countOpenPostsByDate = SelectDataFromPosts.getCountOpenPostsByDate
 
     val countPostsWikiedByType = SelectDataFromPosts.getCountPostsWikiedByType
 
     Ok(views.html.posts("Stackoverflow Analytics", countPosts,
       countPostsByType, avgCountPostsByTypeFromUsers, countFavoritePosts,
-      countClosedPosts, countClosedPostsByDate, countOpenPostsByDate, countPostsWikiedByType))
+      countClosedPosts, countClosedPostsByDate,  countPostsWikiedByType))
   }
 
   def tags () = Action {
@@ -59,7 +58,27 @@ object Application extends Controller {
 
     val countBadges = SelectDataFromBadges.getCountBadges
     val countTypeBadges = SelectDataFromBadges.getCountTypeBadges
+    val avgCountBadgesFromUsers = SelectDataFromBadges.getAvgCountBadgesFromUsers
+    val mostUsedBadges = SelectDataFromBadges.getTheMostUsedBadges
 
-    Ok(views.html.badges("Stackoverflow Analytics", countBadges, countTypeBadges))
+    Ok(views.html.badges("Stackoverflow Analytics", countBadges, countTypeBadges, avgCountBadgesFromUsers, mostUsedBadges))
   }
+
+
+  def votes () = Action {
+
+    val countVotes = SelectDataFromVotes.getCountVotes
+    val countVotesByType = SelectDataFromVotes.getCountVotesByType
+
+    Ok(views.html.votes("Stackoverflow Analytics", countVotes, countVotesByType))
+  }
+
+  def comments () = Action {
+    val countComments = SelectDataFromComments.getCountComments
+    val avgCountCommentsByPosts = SelectDataFromComments.getAvgCountCommentsByPosts
+
+    Ok(views.html.comments("Stackoverflow Analytics", countComments,avgCountCommentsByPosts))
+  }
+
+
 }

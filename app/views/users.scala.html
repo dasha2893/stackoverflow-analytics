@@ -43,11 +43,12 @@
                 <ul class="css-menu">
                     <li><a href="/users">Users</a></li>
                     <li><a href="/posts">Posts</a></li>
-                    <li><a href="#">Votes</a></li>
+                    <li><a href="/votes">Votes</a></li>
                     <li><a href="#">PostHistory</a></li>
-                    <li><a href="#">Comments</a></li>
+                    <li><a href="/comments">Comments</a></li>
                     <li><a href="/tags">Tags</a></li>
-                    <li><a href="#">Badges</a></li>
+                    <li><a href="/badges">Badges</a></li>
+                    <li><a href="http://192.168.0.51:8080/pentaho/Home" style="font-weight: 600;">Mondrian</a></li>
                 </ul>
             </div>
 
@@ -58,10 +59,8 @@
                 <div id="text-left">Number of registered users: <span class="colortext"><script> document.write(" "+countUsers) </script></span></div>
                 <div id="text">This statistic shows the total number of registered users for every month since site inception</div>
                 <div id="content-chart">
-                            <canvas id="myLineChart"></canvas>
+                            <canvas id="canvas_Line1" width="1200" height="500"></canvas>
                     <script>
-
-                    var ctx = $ ( "#myLineChart" ).get ( 0 ).getContext ( "2d" ) ;
 
                     var labels = @Html(registerUsersByDate.map(_._2).toArray.mkString("['","','","']"))
                     var charData = @Html(registerUsersByDate.map(_._1).toArray.mkString("[",",","]"))
@@ -69,26 +68,36 @@
                     labels :labels,
                     datasets :[ {
                     label : "My Second dataset",
-                    fillColor: "rgba(151,187,205,0.2)",
-                    strokeColor: "rgb(100, 110, 255)",
-                    pointColor: "rgba(151,187,205,1)",
+                    fillColor: "#ffe730",
+                    strokeColor: "#ffe730",
+                    pointColor: "#ff9908",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    pointHighlightStroke: "#ffe730",
                     data : charData
                     }
                     ]
                     } ;
+                    var options1 ={
+                    animationSteps : 200,
+                    canvasBorders : true,
+                    canvasBordersWidth : 3,
+                    canvasBordersColor : "black",
+                    graphTitle : "default animation",
+                    legend : true,
+                    inGraphDataShow : true,
+                    annotateDisplay : true,
+                    graphTitleFontSize: 18
 
+                    }
 
-                    var myLineChart = new Chart(ctx).Line(data);
-
+                    new Chart(document.getElementById("canvas_Line1").getContext("2d")).Line(data,options1);
                     </script>
                 </div>
 
                 <div id="text">Count users of a certain age are registered on the site</div>
                 <div id="content-chart">
-                            <canvas id="myBarChart" width="1100" height="500"></canvas>
+                            <canvas id="myBarChart" width="3000" height="500"></canvas>
                     <script>
 
                     var ctx = $ ( "#myBarChart" ).get ( 0 ).getContext ( "2d" ) ;
@@ -98,10 +107,10 @@
                     labels :labels,
                     datasets :[ {
                     label : "My Second dataset",
-                    fillColor : "rgba(100, 193, 205, 0.80)",
-                    strokeColor : "rgba(100, 193, 205, 0.80)",
-                    highlightFill : "rgba(151,187,205,0.75)",
-                    highlightStroke : "rgba(151,187,205,1)",
+                    fillColor : "#ffe730",
+                    strokeColor : "#ffe730",
+                    highlightFill : "#ffe730",
+                    highlightStroke : "#ffe730",
                     data : charData
 
                     }
@@ -126,10 +135,10 @@
                     labels :labels,
                     datasets :[ {
                     label : "My Second dataset",
-                    fillColor : "rgba(100, 193, 205, 0.80)",
-                    strokeColor : "rgba(100, 193, 205, 0.80)",
-                    highlightFill : "rgba(151,187,205,0.75)",
-                    highlightStroke : "rgba(151,187,205,1)",
+                    fillColor : "#ffe730",
+                    strokeColor : "#ffe730",
+                    highlightFill : "#ffe730",
+                    highlightStroke : "#ffe730",
                     data : reputation
                     }
                     ]
@@ -152,10 +161,10 @@
                 labels :labels,
                 datasets :[ {
                 label : "My Second dataset",
-                fillColor : "rgba(100, 193, 205, 0.80)",
-                strokeColor : "rgba(100, 193, 205, 0.80)",
-                highlightFill : "rgba(151,187,205,0.75)",
-                highlightStroke : "rgba(151,187,205,1)",
+                fillColor : "#ffe730",
+                strokeColor : "#ffe730",
+                highlightFill : "#ffe730",
+                highlightStroke : "#ffe730",
                 data : reputation
                 }
                 ]
@@ -178,10 +187,10 @@
                     labels :labels,
                     datasets :[ {
                     label : "My Second dataset",
-                    fillColor : "rgba(100, 193, 205, 0.80)",
-                    strokeColor : "rgba(100, 193, 205, 0.80)",
-                    highlightFill : "rgba(151,187,205,0.75)",
-                    highlightStroke : "rgba(151,187,205,1)",
+                    fillColor : "#ffe730",
+                    strokeColor : "#ffe730",
+                    highlightFill : "#ffe730",
+                    highlightStroke : "#ffe730",
                     data : reputation
                     }
                     ]
@@ -194,7 +203,7 @@
 
                 <div id="content-chart2">
                     <div id="text">Users with the most negative votes</div>
-                    <canvas id="myBarChart5" width="500" height="400"></canvas>
+                    <canvas id="myBarChart5" width="500" height="500"></canvas>
                     <script>
 
                     var ctx5 = $ ( "#myBarChart5" ).get ( 0 ).getContext ( "2d" ) ;
@@ -204,10 +213,10 @@
                     labels :labels,
                     datasets :[ {
                     label : "My Second dataset",
-                    fillColor : "rgba(100, 193, 205, 0.80)",
-                    strokeColor : "rgba(100, 193, 205, 0.80)",
-                    highlightFill : "rgba(151,187,205,0.75)",
-                    highlightStroke : "rgba(151,187,205,1)",
+                    fillColor : "#ffe730",
+                    strokeColor : "#ffe730",
+                    highlightFill : "#ffe730",
+                    highlightStroke : "#ffe730",
                     data : reputation
                     }
                     ]
@@ -221,7 +230,7 @@
             </div>
 
             <div  id="footer">
-                <h1>footer</h1>
+                <h1></h1>
             </div>
 
         </div>

@@ -15,9 +15,9 @@ object SelectDataFromTags {
     val olapStatement = new ConnectToMondrian().getStatement()
 
     val mdx: String = "SELECT\n" +
-      "NON EMPTY {Hierarchize({[TagName].[All TagNames]})} ON COLUMNS,\n" +
-      "NON EMPTY {Hierarchize({[Measures].[count_tags]})} ON ROWS\n" +
-      "FROM [data_tags]"
+                      "NON EMPTY {Hierarchize({[TagName].[All TagNames]})} ON COLUMNS,\n" +
+                      "NON EMPTY {Hierarchize({[Measures].[count_tags]})} ON ROWS\n" +
+                      "FROM [data_tags]"
 
     val cellSet = olapStatement.executeOlapQuery(mdx)
 
@@ -39,9 +39,9 @@ object SelectDataFromTags {
     val olapStatement = new ConnectToMondrian().getStatement()
 
     val mdx: String = "SELECT\n" +
-      "NON EMPTY {Hierarchize({[Measures].[max_count_posts_by_tagName]})} ON COLUMNS,\n" +
-      "NON EMPTY Order(TopCount({Hierarchize({[TagName].[TagName].Members})}, 50, [Measures].[max_count_posts_by_tagName]), [Measures].[max_count_posts_by_tagName], BDESC) ON ROWS\n" +
-      "FROM [data_tags]"
+                      "NON EMPTY {Hierarchize({[Measures].[max_count_posts_by_tagName]})} ON COLUMNS,\n" +
+                      "NON EMPTY Order(TopCount({Hierarchize({[TagName].[TagName].Members})}, 50, [Measures].[max_count_posts_by_tagName]), [Measures].[max_count_posts_by_tagName], BDESC) ON ROWS\n" +
+                      "FROM [data_tags]"
 
     val cellSet = olapStatement.executeOlapQuery(mdx)
 

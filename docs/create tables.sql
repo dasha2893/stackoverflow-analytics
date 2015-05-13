@@ -143,12 +143,6 @@ CREATE TABLE postLinks
 );
 
 
-CREATE TABLE fact_count_registered_users
-(
-  count_registered_users integer,
-  id_users integer NOT NULL
-
-);
 
 
 CREATE TABLE dates
@@ -158,7 +152,6 @@ CREATE TABLE dates
   month double precision,
   day double precision
 );
-
 
 CREATE TABLE users_dim
 (
@@ -173,7 +166,7 @@ CREATE TABLE users_dim
   age integer
 );
 
-CREATE TABLE public.post_dim
+CREATE TABLE posts_dim
 (
   id integer,
   date_key integer,
@@ -209,3 +202,11 @@ CREATE TABLE comments_dim
   score integer,
   creation_Date_key INTEGER
 );
+
+    ALTER TABLE postHistory ADD COLUMN datekey integer;
+    ALTER TABLE posts ADD COLUMN datekey integer;
+    ALTER TABLE users ADD COLUMN datekey integer;
+    ALTER TABLE comments ADD COLUMN datekey integer;
+
+
+

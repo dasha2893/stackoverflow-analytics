@@ -1,4 +1,4 @@
-@(title: String, countBadges: String, countTypeBadges: String)
+@(title: String, countBadges: String, countTypeBadges: String, avgCountBadgesFromUsers: String, mostUsedBadges: collection.mutable.ArrayBuffer[(String, String)])
 
 <!DOCTYPE html>
 
@@ -28,11 +28,12 @@
                 <ul class="css-menu">
                     <li><a href="/users">Users</a></li>
                     <li><a href="/posts">Posts</a></li>
-                    <li><a href="#">Votes</a></li>
+                    <li><a href="/votes">Votes</a></li>
                     <li><a href="#">PostHistory</a></li>
-                    <li><a href="#">Comments</a></li>
+                    <li><a href="/comments">Comments</a></li>
                     <li><a href="/tags">Tags</a></li>
-                    <li><a href="#">Badges</a></li>
+                    <li><a href="/badges">Badges</a></li>
+                    <li><a href="http://192.168.0.51:8080/pentaho/Home" style="font-weight: 600;">Mondrian</a></li>
                 </ul>
             </div>
 
@@ -47,10 +48,43 @@
                 var countTypeBadges = @Html(countTypeBadges)
                 </script>
                 <div id="text-left">Quantity  types of badges: <span class="colortext"><script> document.write(" " + countTypeBadges) </script></span></div>
+
+                <script>
+                var avgCountBadgesFromUsers = @Html(avgCountBadgesFromUsers)
+                </script>
+                <div id="text-left">Average number of badges from user: <span class="colortext"><script> document.write(" " + avgCountBadgesFromUsers) </script></span></div>
+
+                <div id="text">The most used Badges</div>
+                <div id="content-chart">
+                    <canvas id="myBarChart2" width="1000" height="500"></canvas>
+                    <script>
+
+                    var ctx2 = $ ( "#myBarChart2" ).get ( 0 ).getContext ( "2d" ) ;
+                    var labels = @Html(mostUsedBadges.map(_._2).toArray.mkString("['","','","']"))
+                    var reputation = @Html(mostUsedBadges.map(_._1).toArray.mkString("[",",","]"))
+                    var data = {
+                    labels :labels,
+                    datasets :[ {
+                    label : "My Second dataset",
+                    fillColor : "#ffe730",
+                    strokeColor : "#ffe730",
+                    highlightFill : "#ffe730",
+                    highlightStroke : "#ffe730",
+                    data : reputation
+                    }
+                    ]
+                    } ;
+
+                    var myBarChart2 = new Chart ( ctx2 ).Bar (data) ;
+
+                    </script>
+                </div>
+
+
             </div>
 
             <div  id="footer">
-                <h1>footer</h1>
+                <h1></h1>
             </div>
 
         </div>

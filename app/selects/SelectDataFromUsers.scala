@@ -15,9 +15,9 @@ object SelectDataFromUsers {
     val olapStatement = new ConnectToMondrian().getStatement()
 
     val mdx: String = "SELECT\n" +
-      "NON EMPTY {Hierarchize({[Id.Users-UserId].[All Users-UserIds]})} ON COLUMNS,\n" +
-      "NON EMPTY {Hierarchize({[Measures].[count_users]})} ON ROWS\n" +
-      "FROM [data_users]"
+                      "NON EMPTY {Hierarchize({[Id.Users-UserId].[All Users-UserIds]})} ON COLUMNS,\n" +
+                      "NON EMPTY {Hierarchize({[Measures].[count_users]})} ON ROWS\n" +
+                      "FROM [data_users]"
 
     val cellSet = olapStatement.executeOlapQuery(mdx)
 
