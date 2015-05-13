@@ -171,6 +171,14 @@
       </Level>
     </Hierarchy>
   </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="CountCommentsInPosts" caption="CountCommentsInPosts" description="CountCommentsInPosts">
+    <Hierarchy name="CountCommentsInPosts" visible="true" hasAll="true" primaryKey="id" caption="CountCommentsInPosts" description="CountCommentsInPosts">
+      <Table name="posts" schema="public" alias="">
+      </Table>
+      <Level name="CountComments" visible="true" column="commentcount" uniqueMembers="false" caption="CountComments" description="CountComments">
+      </Level>
+    </Hierarchy>
+  </Dimension>
   <Cube name="data_posts" caption="data_posts" visible="true" description="data_posts" cache="true" enabled="true">
     <Table name="posts" schema="public">
     </Table>
@@ -187,6 +195,18 @@
     <DimensionUsage source="Posts-ClosedDate" name="ClosedDate" caption="ClosedDate" visible="true" foreignKey="closeddate" highCardinality="false">
     </DimensionUsage>
     <DimensionUsage source="Posts-Wikied" name="Posts-Wikied" caption="Posts-Wikied" visible="true" foreignKey="communityowneddate" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="User-age" name="Age" caption="Age" visible="true" foreignKey="owneruserid" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="User-Views" name="UserViews" caption="UserViews" visible="true" foreignKey="owneruserid" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Users-PositiveVotes" name="PositiveVotes" caption="PositiveVotes" visible="true" foreignKey="owneruserid" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Users-NegativeVotes" name="NegativeVotes" caption="NegativeVotes" visible="true" foreignKey="owneruserid" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="User-Reputation" name="reputation" caption="reputation" visible="true" foreignKey="owneruserid" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="CountCommentsInPosts" name="CountComments" caption="CountComments" visible="true" foreignKey="commentcount">
     </DimensionUsage>
     <Measure name="count_posts" column="id" aggregator="count" caption="count_posts" description="count_posts" visible="true">
     </Measure>
@@ -217,6 +237,8 @@
     <DimensionUsage source="Users-PositiveVotes" name="PositiveVotes" caption="PositiveVotes" visible="true" foreignKey="upvotes" highCardinality="false">
     </DimensionUsage>
     <DimensionUsage source="Users-NegativeVotes" name="NegativeVotes" caption="NegativeVotes" visible="true" foreignKey="downvotes" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Badges-Name" name="Badges-Name" caption="Badges-Name" visible="true" foreignKey="id">
     </DimensionUsage>
     <Measure name="count_users" column="id" aggregator="count" caption="count_users" description="count_users" visible="true">
     </Measure>
@@ -302,7 +324,7 @@
     </VirtualCubeDimension>
     <VirtualCubeDimension cubeName="data_badges" caption="Badges-Name" visible="true" highCardinality="false" name="Badges-Name">
     </VirtualCubeDimension>
-    <VirtualCubeDimension cubeName="data_comments" caption="IdComment" name="IdComment">
+    <VirtualCubeDimension cubeName="data_comments" caption="IdComment" visible="true" highCardinality="false" name="IdComment">
     </VirtualCubeDimension>
     <VirtualCubeMeasure cubeName="data_posts" name="[Measures].[count_posts]" visible="true">
     </VirtualCubeMeasure>
@@ -316,7 +338,7 @@
     </CalculatedMember>
     <CalculatedMember name="avg_number_of_badges_from_users" caption="avg_number_of_badges_from_users" description="avg_number_of_badges_from_users" formula="[Measures].[count_badges] / [Measures].[count_all_users]" dimension="Measures" visible="true">
     </CalculatedMember>
-    <CalculatedMember name="avg_number_of_comments_from_posts"  caption="avg_number_of_comments_from_posts" description="avg_number_of_comments_from_posts" formula="[Measures].[count_posts] / [Measures].[count_comments]" dimension="Measures" visible="true">
+    <CalculatedMember name="avg_number_of_comments_from_posts" caption="avg_number_of_comments_from_posts" description="avg_number_of_comments_from_posts" formula="[Measures].[count_posts] / [Measures].[count_comments]" dimension="Measures" visible="true">
     </CalculatedMember>
   </VirtualCube>
 </Schema>
