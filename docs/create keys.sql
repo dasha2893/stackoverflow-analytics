@@ -20,24 +20,17 @@ ALTER TABLE comments ADD PRIMARY KEY (id);
 ALTER TABLE comments ADD  CONSTRAINT comments_postId_fkey FOREIGN KEY (postId) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE comments ADD  CONSTRAINT comments_userId_fkey FOREIGN KEY (userId) REFERENCES users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE postHistoryTypes ADD PRIMARY KEY (id);
-
-ALTER TABLE postHistory ADD PRIMARY KEY (id);
-ALTER TABLE postHistory ADD CONSTRAINT postHistory_postHistoryTypeId_fkey FOREIGN KEY (postHistoryTypeId) REFERENCES postHistoryTypes (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE postHistory ADD  CONSTRAINT postHistory_postId_fkey FOREIGN KEY (postId) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE postHistory ADD  CONSTRAINT postHistory_userId_fkey FOREIGN KEY (userId) REFERENCES users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE tags ADD PRIMARY KEY (id);
-
-ALTER TABLE postLinks ADD PRIMARY KEY (id);
-ALTER TABLE postLinks ADD  CONSTRAINT postLinks_postId_fkey FOREIGN KEY (postId) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-ALTER TABLE tags ADD CONSTRAINT tags_excerptpostid_fkey FOREIGN KEY (excerptpostid) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE tags ADD  CONSTRAINT tags_wikipostid_fkey FOREIGN KEY (wikipostid) REFERENCES posts (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE dates ADD PRIMARY KEY (datekey);
 
 ALTER TABLE badges ADD CONSTRAINT badges_pkey PRIMARY KEY (id);
 
+CREATE INDEX index_user_name ON users (displayname);
+CREATE INDEX index_datekey_users ON users (datekey);
+
+CREATE INDEX index_datekey_posts ON posts (datekey);
+CREATE INDEX index_user_id ON posts (owneruserid);
 
 

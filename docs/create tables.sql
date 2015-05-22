@@ -116,31 +116,15 @@ CREATE TABLE postHistory
 
 
 
-CREATE TABLE postHistoryTypes
-(
-  id smallint NOT NULL,
-  name character varying(50)
-);
 
 
 CREATE TABLE tags
 (
   id integer NOT NULL,
   tagName character varying(25),
-  count integer,
-  excerptPostId integer,
-  wikiPostId integer
+  count integer
 );
 
-
-CREATE TABLE postLinks
-(
-  id integer NOT NULL,
-  creationDate timestamp without time zone,
-  postId integer,
-  relatedPostId integer,
-  linkTypeId smallint
-);
 
 
 
@@ -153,55 +137,7 @@ CREATE TABLE dates
   day double precision
 );
 
-CREATE TABLE users_dim
-(
-  id integer NOT NULL,
-  reputation integer,
-  creation_date_key integer,
-  displayName character varying(40),
-  location character varying(100),
-  views integer,
-  upVotes integer,
-  downVotes integer,
-  age integer
-);
 
-CREATE TABLE posts_dim
-(
-  id integer,
-  date_key integer,
-  score integer,
-  view_count integer,
-  owner_user_id integer,
-  favorite_count integer,
-  closed_date character varying(20),
-  community_owned_date timestamp without time zone,
-  post_type_name character varying(50)
-);
-
-CREATE TABLE postHistory_dim
-(
-  id integer NOT NULL,
-  post_History_Type_Name CHARACTER VARYING(50),
-  post_Id integer,
-  creation_date_key integer
-);
-
-CREATE TABLE votes_dim
-(
-  id integer NOT NULL,
-  post_Id integer,
-  vote_Type_name CHARACTER VARYING(50)
-);
-
-
-CREATE TABLE comments_dim
-(
-  id integer NOT NULL,
-  post_Id integer,
-  score integer,
-  creation_Date_key INTEGER
-);
 
     ALTER TABLE postHistory ADD COLUMN datekey integer;
     ALTER TABLE posts ADD COLUMN datekey integer;
